@@ -13,6 +13,7 @@ public class User {
     private String password;
     private String userName;
     private List<Note> notes;
+    private List<Event> createdEvents;
 
 
 }

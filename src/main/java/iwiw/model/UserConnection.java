@@ -5,9 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Tag {
+public class UserConnection {
 
     private Integer id;
-    private String name;
+    private Integer firstUserId;
+    private Integer secondUserId;
 
 }

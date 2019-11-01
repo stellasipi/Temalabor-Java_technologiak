@@ -3,16 +3,15 @@ package iwiw.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
-public class Note {
+//részvétel ??
+public class Participation {
 
     private Integer id;
     private Integer userId;
-    private Date creationTime;
-    private String title;
-    private String text;
+    private Integer eventId;
 
+    private String comment;
+    // private ?? Value;
 }

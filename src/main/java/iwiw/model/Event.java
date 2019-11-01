@@ -9,9 +9,11 @@ import java.util.Date;
 @Setter
 public class Event {
 
-    private Integer ID;
+    private Integer id;
+    private Integer creatorUserId;
     private String name;
     private Date date;
     private Place place;
+
 
 }

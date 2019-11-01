@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Tag {
+public class Marked {
 
     private Integer id;
-    private String name;
-
+    private Integer tagId;
+    private Integer messageId;
 }

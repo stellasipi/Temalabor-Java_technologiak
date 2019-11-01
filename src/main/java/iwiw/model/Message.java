@@ -10,9 +10,8 @@ import java.util.List;
 @Setter
 public class Message {
 
-    private Integer ID;
+    private Integer id;
     private String subject;
     private Date sentDate;
     private String body;
-    private List<Tag> tags;
 }
