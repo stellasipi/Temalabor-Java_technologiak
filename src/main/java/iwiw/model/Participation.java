@@ -5,13 +5,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-//részvétel ??
 public class Participation {
 
     private Integer id;
     private Integer userId;
     private Integer eventId;
 
-    private String comment;
-    // private ?? Value;
+    private String comment;//evaluation in text
+    private Integer value;//evaluation in number
 }

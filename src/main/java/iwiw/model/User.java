@@ -8,7 +8,7 @@ import java.util.List;
 @Setter
 public class User {
 
-    private Integer ID;
+    private Integer id;
     private String name;
     private String password;
     private String userName;

@@ -13,7 +13,6 @@ public class Event {
     private Integer creatorUserId;
     private String name;
     private Date date;
-    private Place place;
-
+    private Place place; //ne placeId legyen?
 
 }
