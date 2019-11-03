@@ -17,8 +17,8 @@ public class FriendshipService {
     private UserConnection createNewConnectionBetween(User user1, User user2){
 
         UserConnection newConnection = new UserConnection();
-        newConnection.setFirstUserId(user1.getID());
-        newConnection.setSecondUserId(user2.getID());
+        newConnection.setFirstUserId(user1.getId());
+        newConnection.setSecondUserId(user2.getId());
         //Plusz egyedi id beállítás majd valahogy
 
         return newConnection;
