@@ -1,6 +1,7 @@
 package iwiw.service;
 
 import iwiw.model.Message;
+import iwiw.model.SentMessage;
 import iwiw.model.User;
 import iwiw.repository.MessageRepository;
 import iwiw.repository.SentMessageRepository;
@@ -14,8 +15,9 @@ public class MessageService {
 
     public void sendMessage(User fromUser,User toUser,String subject,String body){
         Message message = new Message(subject,new Date(System.currentTimeMillis()),body);
-        messageRepository.add(message);
-        sentMessageRepository.add(message.getId(),fromUser.getId(),toUser.getId());
+        messageRepository.save(message);
+        SentMessage sentMessage=new SentMessage(toUser.getId(),fromUser.getId(),message.getId());
+        sentMessageRepository.save(sentMessage);
     }
 
 }

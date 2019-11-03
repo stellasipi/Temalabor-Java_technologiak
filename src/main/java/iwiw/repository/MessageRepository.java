@@ -15,7 +15,6 @@ public interface MessageRepository {
 
     List<Message> findAllByUser(User user);
 
-    void add(Message message);
 
     void delete(Message message);
 
