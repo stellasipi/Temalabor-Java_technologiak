@@ -20,11 +20,17 @@ public class User {
     private String password;
     private String userName;
 
+
+
     @OneToMany(mappedBy = "creatorUser")
     private List<Note> notes;
 
     @OneToMany(mappedBy = "creatorUser")
     private List<Event> createdEvents;
 
+    @OneToMany(mappedBy = "user")
+    private List<Event> participatedEvents;
 
+    @OneToMany(mappedBy = "user")
+    private List<Message> sentMessages;
 }

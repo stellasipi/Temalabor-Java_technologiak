@@ -4,10 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,6 +17,17 @@ public class Message {
     @Id
     @GeneratedValue
     private Integer id;
+
+    @ManyToOne
+    private User sender;
+
+    @ManyToMany
+    private List<Tag> tags;
+
+//    @OneToMany(mappedBy = "message")
+//    private List<MessageUser> sentMessages;
+
+    private User addressee; //címzett
     private String subject;
     private Date sentDate;
     private String body;

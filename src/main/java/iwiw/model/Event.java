@@ -3,11 +3,9 @@ package iwiw.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,9 +20,15 @@ public class Event {
     @ManyToOne
     private User creatorUser;
 
+    @ManyToOne
+    private Place place;
+
+    @OneToMany(mappedBy = "event")
+    private List<UserEvent> participatingUsers;
+
     private String name;
     private Date date;
-    private Place place;
+
 
     public Event(Integer id, User creator, String name, Date date, Place place) {
         this.id = id;

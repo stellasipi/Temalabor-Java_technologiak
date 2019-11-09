@@ -1,11 +1,12 @@
 package iwiw.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +17,9 @@ public class Tag {
     @GeneratedValue
     private Integer id;
     private String name;
+
+    @ManyToMany(mappedBy = "tags")
+    private List<Message> messages;
 
     public Tag(){}
 
