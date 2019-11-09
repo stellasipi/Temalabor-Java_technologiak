@@ -1,16 +1,14 @@
 package iwiw.repository;
 
 import iwiw.model.Participation;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ParticipationRepository {
+public interface ParticipationRepository extends JpaRepository<Participation,Integer> {
 
-    public Participation findById(Integer id);
     public List<Participation> listByUserId(Integer userId);
     public List<Participation> listByEventId(Integer eventId);
     public void update(Participation participation);
-    public void delete (Participation participation);
-    public void deleteById(Integer id);
 
 }
