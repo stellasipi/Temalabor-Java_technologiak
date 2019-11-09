@@ -15,7 +15,7 @@ public class ParticipationService {
         List<Participation> userEvents=participationRepository.listByUserId(user.getId());
         for(Participation participation:userEvents){
             if(participation.getEventId().equals(event.getId())){
-                Participation temp=participationRepository.findById(participation.getId());
+                Participation temp=participationRepository.findById(participation.getId()).get();
                 temp.setComment(text);
                 temp.setValue(value);
                 participationRepository.update(temp);
