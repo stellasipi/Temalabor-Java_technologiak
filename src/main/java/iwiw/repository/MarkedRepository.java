@@ -1,17 +1,15 @@
 package iwiw.repository;
 
 import iwiw.model.Marked;
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
-public interface MarkedRepository {
+public interface MarkedRepository extends JpaRepository<Marked, Integer> {
 
-    public Marked findById(Integer id);
     public List<Marked> listByTagId(Integer tagId);
     public List<Marked> listByMessageId(Integer messageId);
     public Marked update(Marked marked);
-    public void save(Marked marked);
-    public void delete(Marked marked);
-    public void deleteById(Integer id);
 
 }

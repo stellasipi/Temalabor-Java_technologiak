@@ -1,25 +1,16 @@
 package iwiw.repository;
 
 import iwiw.model.Place;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface PlaceRepository {
+public interface PlaceRepository extends JpaRepository<Place,Integer> {
 
-    void save(Place place);
-
-    Place findById(Integer id);
 
     Place findByName(String name);
-
     List<Place> findByCity(String city);
-
     List<Place> findByCountry(String country);
-
-    void delete(Place place);
-
-    void deleteById(Integer id);
-
     Place update(Place place);
 
 }
