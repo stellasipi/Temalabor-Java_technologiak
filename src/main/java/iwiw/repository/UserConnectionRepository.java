@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserConnectionRepository extends JpaRepository<UserConnection,Integer> {
 
-    List<UserConnection> findByParticipantId(Integer id);
-    UserConnection findByTwoParticipants(User user1, User user2);
+//    List<UserConnection> findByParticipantId(Integer id);
+//    UserConnection findByTwoParticipants(User user1, User user2);
 
 }

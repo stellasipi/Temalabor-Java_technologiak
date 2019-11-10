@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface ParticipationRepository extends JpaRepository<Participation,Integer> {
 
-    public List<Participation> listByUserId(Integer userId);
-    public List<Participation> listByEventId(Integer eventId);
-    public void update(Participation participation);
+//    public List<Participation> listByUserId(Integer userId);
+//    public List<Participation> listByEventId(Integer eventId);
+//    public void update(Participation participation);
 
 }

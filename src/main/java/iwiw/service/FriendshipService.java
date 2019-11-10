@@ -27,7 +27,7 @@ public class FriendshipService {
 
     public void deleteFriendshipBetween(User user1, User user2){
 
-        connectionRepository.delete(connectionRepository.findByTwoParticipants(user1, user2));
+//        connectionRepository.delete(connectionRepository.findByTwoParticipants(user1, user2));
     }
 
     //stb, stb...

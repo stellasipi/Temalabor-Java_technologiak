@@ -12,11 +12,13 @@ import javax.persistence.Id;
 @Setter
 @NoArgsConstructor
 @Entity
-public class SentMessage {
+@Deprecated
+public class SentMessage { //szükségtelen, közben rájöttük hogy OneToMany kapcsolat lesz
 
     @Id
     @GeneratedValue
     private Integer id;
+
     private Integer toId;
     private Integer fromId;
     private Integer messageId;

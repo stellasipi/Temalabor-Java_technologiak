@@ -12,15 +12,15 @@ public class ParticipationService {
     ParticipationRepository participationRepository;
 
     public void createEvaluation(User user, Event event,Integer value, String text){
-        List<Participation> userEvents=participationRepository.listByUserId(user.getId());
-        for(Participation participation:userEvents){
-            if(participation.getEventId().equals(event.getId())){
-                Participation temp=participationRepository.findById(participation.getId()).get();
-                temp.setComment(text);
-                temp.setValue(value);
-                participationRepository.update(temp);
-            }
-        }
+//        List<Participation> userEvents=participationRepository.listByUserId(user.getId());
+//        for(Participation participation:userEvents){
+//            if(participation.getEventId().equals(event.getId())){
+//                Participation temp=participationRepository.findById(participation.getId()).get();
+//                temp.setComment(text);
+//                temp.setValue(value);
+//                participationRepository.update(temp);
+//            }
+//        }
     }
 
 }

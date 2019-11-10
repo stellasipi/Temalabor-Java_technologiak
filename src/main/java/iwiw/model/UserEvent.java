@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +16,9 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+/**
+ * User És Event kapcsolótáblája, mert több-több és vannak plusz attribútumai
+ */
 public class UserEvent {
 
     @EmbeddedId
@@ -27,8 +31,6 @@ public class UserEvent {
     @ManyToOne
     @MapsId("eventId")
     private Event event;
-
-
 
     private String comment;//evaluation in text
     private Integer value;//evaluation in number

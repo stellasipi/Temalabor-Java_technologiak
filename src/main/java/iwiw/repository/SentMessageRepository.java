@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SentMessageRepository extends JpaRepository<SentMessage,Integer> {
 
-    public List<Integer> listByFromId(Integer fromId);
-    public List<Integer> listByToId(Integer toId);
+//    public List<Integer> listByFromId(Integer fromId);
+//    public List<Integer> listByToId(Integer toId);
 
 }

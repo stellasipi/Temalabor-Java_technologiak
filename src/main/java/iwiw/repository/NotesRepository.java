@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface NotesRepository extends JpaRepository<Note,Integer> {
 
-    public List<Note> listByUserId(Integer userId);
-    public List<Note> listBetweenDates(Date from, Date to);
-    public Note update(Note note);
+//    public List<Note> listByUserId(Integer userId);
+//    public List<Note> listBetweenDates(Date from, Date to);
+//    public Note update(Note note);
 
 }

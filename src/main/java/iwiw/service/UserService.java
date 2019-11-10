@@ -8,11 +8,11 @@ public class UserService {
 
     public void changeUserName(User user, String newUserName){
         user.setUserName(newUserName);
-        userRepository.update(user);
+//        userRepository.update(user);
     }
 
     public void changePassword(User user, String newPassword){
         user.setPassword(newPassword);
-        userRepository.update(user);
+//        userRepository.update(user);
     }
 }

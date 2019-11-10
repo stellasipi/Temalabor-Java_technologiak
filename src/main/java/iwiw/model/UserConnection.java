@@ -10,6 +10,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @Entity
+@Deprecated
 public class UserConnection {
 
     @Id

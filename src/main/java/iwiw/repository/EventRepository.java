@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event,Integer> {
 
-    List<Event> findByCreatorId(Integer id);
-    List<Event> findByName(String name);
-    List<Event> findByDate(Date date);
-    List<Event> findByPlace(Place place);
-    Event update(Event event);
+//    List<Event> findByCreatorId(Integer id);
+//    List<Event> findByName(String name);
+//    List<Event> findByDate(Date date);
+//    List<Event> findByPlace(Place place);
+//    Event update(Event event);
 
 }
