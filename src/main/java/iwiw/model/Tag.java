@@ -1,9 +1,6 @@
 package iwiw.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +14,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Builder
+@AllArgsConstructor
 public class Tag {
 
     @Id
@@ -28,5 +26,7 @@ public class Tag {
     private Set<Message> messages = new HashSet<>();
 
     private String name;
+
+
 
 }

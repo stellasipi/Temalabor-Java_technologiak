@@ -23,15 +23,15 @@ public class User {
     private  Set<Note> notes = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "creatorUser")
+    @OneToMany(mappedBy = "creatorUser", cascade = CascadeType.ALL)
     private  Set<Event> createdEvents = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private  Set<UserEvent> participatedEvents = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "sender")
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     private  Set<Message> sentMessages = new HashSet<>();
 
     /*
@@ -68,12 +68,12 @@ public class User {
        this.notes.remove(note);
    }
 
-   public void addEvent(Event event){
+   public void addCreatedEvent(Event event){
        event.setCreatorUser(this);
        this.createdEvents.add(event);
    }
 
-   public void removeEvent(Event event){
+   public void removeCreatedEvent(Event event){
        event.setCreatorUser(null);
        this.createdEvents.remove(event);
    }
@@ -94,6 +94,13 @@ public class User {
        this.friendOf.add(newFriend);
        newFriend.friends.add(this);
        newFriend.friendOf.add(this);
+    }
+
+    public void addParticipatedEvent(Event event){
+       UserEvent userEvent = UserEvent.builder().user(this).event(event).comment("ott leszek").build();
+       userEvent.setId(new UserEventId(this.id,event.getId()));
+       participatedEvents.add(userEvent);
+       event.getParticipatingUsers().add(userEvent);
     }
 
     private void initSets(User newFriend) {

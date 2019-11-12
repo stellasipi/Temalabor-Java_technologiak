@@ -1,9 +1,6 @@
 package iwiw.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Builder
+@AllArgsConstructor
 public class Message {
 
     @Id
