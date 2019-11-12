@@ -35,8 +35,8 @@ public class IwiwApplication implements CommandLineRunner {
         user2.addNote(new Note());
 
         userRepository.save(user2);
-        user1.addFriend(user2);
         userRepository.save(user1);
+        user1.addFriend(user2);
 
         Place testPlace = Place.builder().name("testPlace").city("testCity").country("testCountry").build();
         Event testEvent = Event.builder().name("testEventName").date(new Date()).build();
@@ -48,7 +48,6 @@ public class IwiwApplication implements CommandLineRunner {
 
         user2.addParticipatedEvent(testEvent);
 
-        userRepository.save(user2);
         userRepository.save(user1);
 
 

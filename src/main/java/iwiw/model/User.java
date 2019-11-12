@@ -38,19 +38,21 @@ public class User {
     https://stackoverflow.com/questions/1656113/hibernate-recursive-many-to-many-association-with-the-same-entity
     top válasz
      */
+    @Builder.Default
     @ManyToMany
     @JoinTable(name="tbl_friends",
             joinColumns=@JoinColumn(name="personId"),
             inverseJoinColumns=@JoinColumn(name="friendId")
     )
-    private Set<User> friends;
+    private Set<User> friends = new HashSet<>();
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(name="tbl_friends",
             joinColumns=@JoinColumn(name="friendId"),
             inverseJoinColumns=@JoinColumn(name="personId")
     )
-    private Set<User> friendOf;
+    private Set<User> friendOf = new HashSet<>();
 
     private String name;
     private String password;
