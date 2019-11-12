@@ -3,32 +3,40 @@ package iwiw.service;
 import iwiw.model.User;
 import iwiw.model.UserConnection;
 import iwiw.repository.UserConnectionRepository;
+import iwiw.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
+@Service
 public class FriendshipService {
 
-    private UserConnectionRepository connectionRepository;
+    @Autowired
+    private UserRepository userRepository;
 
+    @Transactional
     public void newFriendshipBetween(User user1, User user2){
 
-        connectionRepository.save( createNewConnectionBetween(user1,user2) );
+        User firstFriend = userRepository.findById(user1.getId()).get();
+        firstFriend.addFriend(user2);
+
+        User secondFriend = userRepository.findById(user2.getId()).get();
+        secondFriend.addFriend(user1);
+
+        userRepository.save(user1);
+        userRepository.save(user2);
 
     }
 
-    private UserConnection createNewConnectionBetween(User user1, User user2){
-
-        UserConnection newConnection = new UserConnection();
-        newConnection.setFirstUserId(user1.getId());
-        newConnection.setSecondUserId(user2.getId());
-        //Plusz egyedi id beállítás majd valahogy
-
-        return newConnection;
-
-    }
-
+    @Transactional
     public void deleteFriendshipBetween(User user1, User user2){
 
-//        connectionRepository.delete(connectionRepository.findByTwoParticipants(user1, user2));
+        userRepository.findById(user1.getId()).get().removeFriend(user2);
+        userRepository.findById(user2.getId()).get().removeFriend(user1);
+        userRepository.save(user1);
+        userRepository.save(user2);
     }
 
-    //stb, stb...
+
 }

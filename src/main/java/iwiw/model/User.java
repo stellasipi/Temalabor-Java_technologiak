@@ -96,6 +96,14 @@ public class User {
        newFriend.friendOf.add(this);
     }
 
+    public void removeFriend(User postFriend){
+       initSets(postFriend);
+       this.friends.remove(postFriend);
+       this.friendOf.remove(postFriend);
+       postFriend.friends.remove(this);
+       postFriend.friendOf.remove(this);
+    }
+
     private void initSets(User newFriend) {
        if(friends == null)
            friends = new HashSet<>();
