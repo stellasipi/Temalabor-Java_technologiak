@@ -1,9 +1,6 @@
 package iwiw.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,6 +12,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Builder
+@AllArgsConstructor
 public class Event {
 
     @Id
@@ -24,7 +22,7 @@ public class Event {
     @ManyToOne
     private User creatorUser;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Place place;
 
     @Builder.Default

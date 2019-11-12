@@ -23,15 +23,15 @@ public class User {
     private  Set<Note> notes = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "creatorUser")
+    @OneToMany(mappedBy = "creatorUser", cascade = CascadeType.ALL)
     private  Set<Event> createdEvents = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private  Set<UserEvent> participatedEvents = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "sender")
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     private  Set<Message> sentMessages = new HashSet<>();
 
     /*
@@ -57,23 +57,21 @@ public class User {
     private String userName;
 
    public void addNote(Note note){
-       initSets(note);
        note.setCreatorUser(this);
        this.notes.add(note);
    }
-
 
     public void removeNote(Note note){
        note.setCreatorUser(null);
        this.notes.remove(note);
    }
 
-   public void addEvent(Event event){
+   public void addCreatedEvent(Event event){
        event.setCreatorUser(this);
        this.createdEvents.add(event);
    }
 
-   public void removeEvent(Event event){
+   public void removeCreatedEvent(Event event){
        event.setCreatorUser(null);
        this.createdEvents.remove(event);
    }
@@ -89,37 +87,28 @@ public class User {
     }
 
     public void addFriend(User newFriend){
-       initSets(newFriend);
        this.friends.add(newFriend);
        this.friendOf.add(newFriend);
        newFriend.friends.add(this);
        newFriend.friendOf.add(this);
     }
 
-    public void removeFriend(User postFriend){
-       initSets(postFriend);
-       this.friends.remove(postFriend);
-       this.friendOf.remove(postFriend);
-       postFriend.friends.remove(this);
-       postFriend.friendOf.remove(this);
+
+    public void removeFriend(User postFriend) {
+
+        this.friends.remove(postFriend);
+        this.friendOf.remove(postFriend);
+        postFriend.friends.remove(this);
+        postFriend.friendOf.remove(this);
     }
 
-    private void initSets(User newFriend) {
-       if(friends == null)
-           friends = new HashSet<>();
+    public void addParticipatedEvent(Event event){
+       UserEvent userEvent = UserEvent.builder().user(this).event(event).comment("ott leszek").build();
+       userEvent.setId(new UserEventId(this.id,event.getId()));
+       participatedEvents.add(userEvent);
+       event.getParticipatingUsers().add(userEvent);
 
-       if(friendOf == null)
-           friendOf = new HashSet<>();
-
-       if(newFriend.friends == null)
-           newFriend.friends = new HashSet<>();
-
-       if(newFriend.friendOf == null)
-           newFriend.friendOf = new HashSet<>();
-
-   }
-    private void initSets(Note note) {
-       if(notes == null)
-           notes = new HashSet<>();
     }
+
+
 }
