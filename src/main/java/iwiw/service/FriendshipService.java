@@ -16,13 +16,10 @@ public class FriendshipService {
     private UserRepository userRepository;
 
     @Transactional
-    public void newFriendshipBetween(User user1, User user2){
+    public void createNewFriendshipBetween(User user1, User user2){
 
         User firstFriend = userRepository.findById(user1.getId()).get();
         firstFriend.addFriend(user2);
-
-        User secondFriend = userRepository.findById(user2.getId()).get();
-        secondFriend.addFriend(user1);
 
         userRepository.save(user1);
         userRepository.save(user2);
@@ -33,7 +30,6 @@ public class FriendshipService {
     public void deleteFriendshipBetween(User user1, User user2){
 
         userRepository.findById(user1.getId()).get().removeFriend(user2);
-        userRepository.findById(user2.getId()).get().removeFriend(user1);
         userRepository.save(user1);
         userRepository.save(user2);
     }

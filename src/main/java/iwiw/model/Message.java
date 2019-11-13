@@ -30,7 +30,7 @@ public class Message {
 //    @OneToMany(mappedBy = "message")
 //    private List<MessageUser> sentMessages;
 
-    private Integer addresseeId; //címzett TODO: EZZEL KEZDENI VMIT, H NE INTEGER LEGYEN
+    private User addresseeUser; //címzett is User, igy jo, nem? TODO: EZZEL KEZDENI VMIT, H NE INTEGER LEGYEN
     private String subject;
     private Date sentDate;
     private String body;
