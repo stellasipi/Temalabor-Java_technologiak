@@ -42,23 +42,4 @@ public class MessageService {
     public ArrayList<Message> listUsersInbox(User user){
         return messageRepository.findMessagesByAddressee(user);
     }
-
-    @Transactional
-    public void addTagToMessage(Tag tag, Message message){
-
-        messageRepository.findById(message.getId()).get().addTag(tag);
-        tagRepository.save(tag);
-        messageRepository.save(message);
-    }
-
-    @Transactional
-    public void removeTagFromMessage(Tag tag, Message message){
-
-        messageRepository.findById(message.getId()).get().removeTag(tag); //Egyelőre nincs kezelve ha nincs olyan tag rajta, de lehet nem is kell
-        tagRepository.save(tag);
-        messageRepository.save(message);
-    }
-
-
-
 }

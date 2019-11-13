@@ -112,5 +112,14 @@ public class User {
 
     }
 
+    public boolean checkPassword(String passwordToCheck){
+       if(password.equals(passwordToCheck)){
+           return true;
+       }
+       else{
+           return false;
+       }
+    }
+
 
 }
