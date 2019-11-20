@@ -1,11 +1,10 @@
 package iwiw;
 
 
-import iwiw.model.Event;
-import iwiw.model.Note;
-import iwiw.model.Place;
-import iwiw.model.User;
+import iwiw.model.*;
 import iwiw.repository.EventRepository;
+import iwiw.repository.MessageRepository;
+import iwiw.repository.TagRepository;
 import iwiw.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,10 +17,16 @@ import java.util.Date;
 public class IwiwApplication implements CommandLineRunner {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    EventRepository eventRepository;
+    private EventRepository eventRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(IwiwApplication.class, args);
@@ -49,6 +54,15 @@ public class IwiwApplication implements CommandLineRunner {
         user2.addParticipatedEvent(testEvent);
 
         userRepository.save(user1);
+
+        Tag testTag = Tag.builder().name("tesztTag").build();
+        tagRepository.save(testTag);
+
+        Message testMassage = Message.builder().sender(user1).addressee(user2).body("body").sentDate(new Date()).subject("subject").build();
+        testMassage.addTag(testTag);
+        messageRepository.save(testMassage);
+
+
 
 
     }

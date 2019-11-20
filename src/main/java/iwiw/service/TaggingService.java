@@ -41,7 +41,7 @@ public class TaggingService {
     @Transactional
     public ArrayList<Message> listUsersMessagesWithTag(User user, Tag tag){
 
-        return messageRepository.listUsersMessagesWithTag(user, tag);
+        return messageRepository.findAllMessagesByAddresseeAndTagsIs(user, tag);
     }
 
 }

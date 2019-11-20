@@ -30,7 +30,8 @@ public class Message {
 //    @OneToMany(mappedBy = "message")
 //    private List<MessageUser> sentMessages;
 
-    private Integer addresseeUserId; // TODO: EZZEL KEZDENI VMIT, H NE INTEGER LEGYEN
+    @ManyToOne
+    private User addressee; // TODO: EZZEL KEZDENI VMIT, H NE INTEGER LEGYEN
     private String subject;
     private Date sentDate;
     private String body;
@@ -50,4 +51,5 @@ public class Message {
         this.tags.remove(tag);
         tag.getMessages().remove(this);
     }
+
 }

@@ -34,6 +34,10 @@ public class User {
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     private  Set<Message> sentMessages = new HashSet<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "addressee", cascade = CascadeType.ALL)
+    private  Set<Message> receivedMessages = new HashSet<>();
+
     /*
     https://stackoverflow.com/questions/1656113/hibernate-recursive-many-to-many-association-with-the-same-entity
     top válasz

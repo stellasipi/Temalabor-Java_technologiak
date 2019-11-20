@@ -30,7 +30,7 @@ public class MessageService {
 
     @Transactional
     public void sendMessage(User fromUser,User toUser,String subject,String body){
-        Message message = Message.builder().sender(fromUser).addresseeUser(toUser).body(body)
+        Message message = Message.builder().sender(fromUser).addressee(toUser).body(body)
                     .sentDate(new Date(System.currentTimeMillis())).subject(subject).build();
         userRepository.findById(fromUser.getId()).get().addMessage(message);
         messageRepository.save(message); //Új levél mentése

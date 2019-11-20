@@ -11,6 +11,6 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message,Integer> {
 
     ArrayList<Message> findMessagesByAddressee(User user); //Címzett alapján levelek listázása
-    ArrayList<Message> listUsersMessagesWithTag(User user, Tag tag);
+    ArrayList<Message> findAllMessagesByAddresseeAndTagsIs(User user, Tag tag);
 
 }
