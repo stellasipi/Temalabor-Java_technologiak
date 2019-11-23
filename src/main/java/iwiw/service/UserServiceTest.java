@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -29,10 +30,11 @@ public class UserServiceTest {
         User user = User.builder().userName("test").name("test").password("oldPassword").build();
 
         when(userRepository.findByName("test")).thenReturn(Arrays.asList(user));
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
 
         userService.changePassword(user, "oldPassword", "newPassword");
 
-        assertEquals(userRepository.findByName("test").get(0).getPassword(), "newPassword");
+        assertEquals("newPassword", userRepository.findByName("test").get(0).getPassword());
     }
 
     @Test
@@ -41,10 +43,11 @@ public class UserServiceTest {
         User user = User.builder().userName("test").name("test").password("oldPassword").build();
 
         when(userRepository.findByName("test")).thenReturn(Arrays.asList(user));
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
 
         userService.changeUserName(user, "newUserName");
 
-        assertEquals(userRepository.findByName("test").get(0).getPassword(), "newPassword");
+        assertEquals("newUserName", userRepository.findByName("test").get(0).getUserName());
 
     }
 }

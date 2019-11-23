@@ -32,7 +32,7 @@ public class UserServiceIT {
         userService.changePassword(user, "oldPassword", "newPassword");
 
         user = userRepository.findByName("test").get(0);
-        assertEquals(user.getPassword(), "newPassword");
+        assertEquals("newPassword", user.getPassword());
     }
 
     @Test
@@ -44,6 +44,6 @@ public class UserServiceIT {
         userService.changeUserName(user, "changedUserName");
 
         user = userRepository.findByName("test").get(0);
-        assertEquals(user.getUserName(), "changedUserName");
+        assertEquals("changedUserName", user.getUserName());
     }
 }
