@@ -15,7 +15,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @Builder.Default
@@ -82,15 +82,16 @@ public class User {
        this.createdEvents.remove(event);
    }
 
-    public void addMessage(Message message){
+    public void addOutgoingMessage(Message message){
         message.setSender(this);
         this.sentMessages.add(message);
     }
 
-    public void removeMessage(Message message){
-        message.setSender(null);
-        this.sentMessages.remove(message);
+    public void addIncomingMessage(Message message){
+        message.setAddressee(this);
+        this.receivedMessages.add(message);
     }
+
 
     public void addFriend(User newFriend){
        this.friends.add(newFriend);
