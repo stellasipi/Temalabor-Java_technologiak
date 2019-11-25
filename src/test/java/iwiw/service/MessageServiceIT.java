@@ -9,10 +9,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 @Transactional
 @AutoConfigureTestDatabase
+@ActiveProfiles("test")
 public class MessageServiceIT {
 
     @Autowired
@@ -37,12 +38,12 @@ public class MessageServiceIT {
     public void testSendMessage() throws Exception{
         //ARRANGE
         User fromUser=User.builder()
-                .id(1)
+                /*.id(1)*/
                 .userName("fromUser")
                 .name("From User")
                 .build();
         User toUser=User.builder()
-                .id(2)
+                /*.id(2)*/
                 .userName("toUser")
                 .name("To User")
                 .build();
@@ -64,22 +65,24 @@ public class MessageServiceIT {
     public void testListUsersInbox() throws Exception{
         //ARRANGE
         User testUser1=User.builder()
-                .id(1)
+                /*.id(1)*/
                 .userName("test_username1")
                 .name("Test User1")
                 .build();
         User testUser2=User.builder()
-                .id(2)
+                /*.id(2)*/
                 .userName("test_username2")
                 .name("Test User2")
                 .build();
         Message testMessage1=Message.builder()
-                .id(1)
+                /*.id(1)*/
+                .subject("testMessageSubject1")
                 .addressee(testUser1)
                 .sender(testUser2)
                 .build();
         Message testMessage2=Message.builder()
-                .id(2)
+                /*.id(2)*/
+                .subject("testMessageSubject2")
                 .addressee(testUser2)
                 .sender(testUser1)
                 .build();
@@ -90,6 +93,9 @@ public class MessageServiceIT {
         testUser2.addOutgoingMessage(testMessage1);
         testUser2.addIncomingMessage(testMessage2);
 
+        userRepository.save(testUser1);
+        userRepository.save(testUser2);
+
         messageRepository.save(testMessage1);
         messageRepository.save(testMessage2);
 
@@ -98,8 +104,8 @@ public class MessageServiceIT {
         List<Message> user2Inbox=messageService.listUsersInbox(testUser2);
 
         //ASSERT
-        assertEquals(Optional.of(1),Optional.of(user1Inbox.get(0).getId()));
-        assertEquals(Optional.of(2),Optional.of(user2Inbox.get(0).getId()));
+        assertEquals(Optional.of("testMessageSubject1"),Optional.of(user1Inbox.get(0).getSubject()));
+        assertEquals(Optional.of("testMessageSubject2"),Optional.of(user2Inbox.get(0).getSubject()));
 
     }
 }

@@ -1,4 +1,4 @@
-package iwiw;
+package iwiw.service;
 
 
 import iwiw.model.User;

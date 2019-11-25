@@ -1,4 +1,4 @@
-package iwiw;
+package iwiw.service;
 
 import iwiw.model.Message;
 import iwiw.model.Tag;
