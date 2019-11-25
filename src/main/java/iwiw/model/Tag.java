@@ -2,10 +2,7 @@ package iwiw.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +15,7 @@ import java.util.Set;
 public class Tag {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @Builder.Default
@@ -27,6 +24,9 @@ public class Tag {
 
     private String name;
 
-
-
+    public Tag(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+        messages = new HashSet<>();
+    }
 }

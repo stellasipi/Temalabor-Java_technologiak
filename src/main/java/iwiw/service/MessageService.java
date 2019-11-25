@@ -1,21 +1,16 @@
 package iwiw.service;
 
 import iwiw.model.Message;
-import iwiw.model.SentMessage;
-import iwiw.model.Tag;
 import iwiw.model.User;
 import iwiw.repository.MessageRepository;
-import iwiw.repository.SentMessageRepository;
 import iwiw.repository.TagRepository;
 import iwiw.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class MessageService {

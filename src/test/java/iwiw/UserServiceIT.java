@@ -1,11 +1,15 @@
-package iwiw.service;
+package iwiw;
+
 import iwiw.model.User;
+import iwiw.repository.PlaceRepository;
 import iwiw.repository.UserRepository;
+import iwiw.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,19 +19,25 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 @Transactional
 @AutoConfigureTestDatabase
+@ActiveProfiles("test")
 public class UserServiceIT {
 
     @Autowired
-    UserService userService;
+    PlaceRepository placeRepository;
 
     @Autowired
     UserRepository userRepository;
 
+
+    @Autowired
+    UserService userService;
+
+
     @Test
     public void testChangingPassword(){
 
-        User user = User.builder().userName("test").name("test").password("oldPassword").build();
-        userRepository.save(user);
+        User user = new User(1, "test", "test", "oldPassword");
+        user = userRepository.save(user);
 
         userService.changePassword(user, "oldPassword", "newPassword");
 
@@ -38,8 +48,8 @@ public class UserServiceIT {
     @Test
     public void testChangingUserName(){
 
-        User user = User.builder().userName("test").name("test").password("oldPassword").build();
-        userRepository.save(user);
+        User user = new User(2, "test", "test", "oldPassword");
+        user = userRepository.save(user);
 
         userService.changeUserName(user, "changedUserName");
 

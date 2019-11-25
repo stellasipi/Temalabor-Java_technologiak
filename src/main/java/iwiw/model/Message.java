@@ -17,7 +17,7 @@ import java.util.Set;
 public class Message {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @ManyToOne

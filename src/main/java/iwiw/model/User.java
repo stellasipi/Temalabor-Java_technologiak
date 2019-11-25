@@ -10,12 +10,13 @@ import java.util.Set;
 @Setter
 @Entity
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "USER")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @Builder.Default
@@ -39,9 +40,9 @@ public class User {
     private  Set<Message> receivedMessages = new HashSet<>();
 
     /*
-    https://stackoverflow.com/questions/1656113/hibernate-recursive-many-to-many-association-with-the-same-entity
-    top válasz
-     */
+        https://stackoverflow.com/questions/1656113/hibernate-recursive-many-to-many-association-with-the-same-entity
+        top válasz
+         */
     @Builder.Default
     @ManyToMany
     @JoinTable(name="tbl_friends",
@@ -62,7 +63,15 @@ public class User {
     private String password;
     private String userName;
 
-   public void addNote(Note note){
+    public User(Integer id, String name, String userName, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.userName = userName;
+    }
+
+
+    public void addNote(Note note){
        note.setCreatorUser(this);
        this.notes.add(note);
    }

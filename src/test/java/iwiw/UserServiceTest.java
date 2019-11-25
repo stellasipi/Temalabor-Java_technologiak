@@ -1,8 +1,9 @@
-package iwiw.service;
+package iwiw;
 
 
 import iwiw.model.User;
 import iwiw.repository.UserRepository;
+import iwiw.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

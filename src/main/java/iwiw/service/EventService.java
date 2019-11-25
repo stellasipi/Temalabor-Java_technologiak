@@ -2,12 +2,10 @@ package iwiw.service;
 
 import iwiw.model.Event;
 import iwiw.model.Place;
-import iwiw.model.User;
 import iwiw.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.util.Date;
 
