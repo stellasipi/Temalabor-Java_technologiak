@@ -3,7 +3,6 @@ package iwiw.service;
 import iwiw.model.Message;
 import iwiw.model.User;
 import iwiw.repository.MessageRepository;
-import iwiw.repository.TagRepository;
 import iwiw.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -31,8 +29,6 @@ public class MessageServiceTest {
     @Mock
     MessageRepository messageRepository;
 
-    @Mock
-    TagRepository tagRepository;
 
     @Test
     public void testSendMessage() throws Exception{
