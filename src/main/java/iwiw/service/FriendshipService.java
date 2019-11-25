@@ -1,13 +1,11 @@
 package iwiw.service;
 
 import iwiw.model.User;
-import iwiw.model.UserConnection;
-import iwiw.repository.UserConnectionRepository;
 import iwiw.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Service
 public class FriendshipService {

@@ -36,6 +36,7 @@ public class IwiwApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 
+
         User user1 = User.builder().name("Teszt Elek").userName("tesztelek").password("tesztelek").build();
         User user2 = User.builder().name("Mezei Virág").userName("mezeivirag").password("mezeivirag").build();
 
@@ -53,7 +54,7 @@ public class IwiwApplication implements CommandLineRunner {
         eventRepository.save(testEvent);
         user1.addCreatedEvent(testEvent);
 
-        user2.addParticipatedEvent(testEvent);
+        user2.addParticipatedEvent(testEvent, "comment");
 
         userRepository.save(user1);
 
