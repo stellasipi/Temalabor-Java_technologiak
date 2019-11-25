@@ -41,15 +41,23 @@ public class EventServiceTest {
 
     @Test
     public void changeEventNameTest(){
-
         Event event = Event.builder().id(1).name("oldName").build();
-
         when(eventRepository.findById(1)).thenReturn(Optional.of(event));
-
         eventService.changeEventName(event, "newName");
         assertThat(event.getName(), equalTo("newName"));
 
     }
+
+    @Test
+    public void changeEventDateTest(){
+        Date oldDate = new Date(System.currentTimeMillis() - 24*60*60*1000);
+        Date newDate = new Date(System.currentTimeMillis() + 24*60*60*1000);
+        Event event = Event.builder().id(1).date(oldDate).build();
+        when(eventRepository.findById(1)).thenReturn(Optional.of(event));
+        eventService.changeEventDate(event, newDate);
+        assertThat(event.getDate(), equalTo(newDate));
+    }
+
 
 
     @Test

@@ -47,6 +47,16 @@ public class EventServiceIT {
     }
 
     @Test
+    public void changeEventDateTest(){
+        Date oldDate = new Date(System.currentTimeMillis() - 24*60*60*1000);
+        Date newDate = new Date(System.currentTimeMillis() + 24*60*60*1000);
+        Event event = Event.builder().id(1).date(oldDate).build();
+        event = eventRepository.save(event);
+        eventService.changeEventDate(event, newDate);
+        assertThat(event.getDate(), equalTo(newDate));
+    }
+
+    @Test
     public void sendMessageToParticipatingUsersTest(){
         //ARRANGE
         User creator = User.builder().name("creator").userName("creator").password("creator").id(3).build();
