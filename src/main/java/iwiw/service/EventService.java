@@ -1,8 +1,12 @@
 package iwiw.service;
 
 import iwiw.model.Event;
+import iwiw.model.Message;
 import iwiw.model.Place;
+import iwiw.model.User;
 import iwiw.repository.EventRepository;
+import iwiw.repository.MessageRepository;
+import iwiw.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +18,12 @@ public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     @Transactional
     public void changeEventName(Event event, String name){
@@ -35,7 +45,16 @@ public class EventService {
         eventRepository.save(event);
     }
 
-    
+    @Transactional
+    public void sendMessageToParticipatingUsers(Event testEvent, String subject, String body) {
+            testEvent.getParticipatingUsers().forEach(userEvent -> {
+                User participant = userRepository.findById(userEvent.getUser().getId()).get();
+                Message message = Message.builder().subject(subject).body(body).sentDate(new Date()).build();
+                testEvent.getCreatorUser().addOutgoingMessage(message);
+                participant.addIncomingMessage(message);
+                messageRepository.save(message);
+            });
 
-    //stb,stb...
+    }
+
 }
