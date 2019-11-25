@@ -28,7 +28,7 @@ public class MessageService {
     public void sendMessage(User fromUser,User toUser,String subject,String body){
         Message message = Message.builder().sender(fromUser).addressee(toUser).body(body)
                     .sentDate(new Date(System.currentTimeMillis())).subject(subject).build();
-        userRepository.findById(fromUser.getId()).get().addMessage(message);
+        userRepository.findById(fromUser.getId()).get().addIncomingMessage(message);
         messageRepository.save(message); //Új levél mentése
         userRepository.save(fromUser); //Meglévő felhasználó updatelése - új küldött levél felvétele miatt
     }
