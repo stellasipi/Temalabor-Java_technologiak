@@ -40,8 +40,9 @@ public class EventServiceIT {
     @Test
     public void changeEventNameTest(){
         Event event = Event.builder().id(1).name("oldName").build();
-        eventRepository.save(event);
+        event = eventRepository.save(event);
         eventService.changeEventName(event, "newName");
+        assertThat(event.getName(), equalTo("newName"));
 
     }
 

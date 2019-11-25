@@ -47,8 +47,6 @@ public class EventServiceTest {
         when(eventRepository.findById(1)).thenReturn(Optional.of(event));
 
         eventService.changeEventName(event, "newName");
-
-
         assertThat(event.getName(), equalTo("newName"));
 
     }

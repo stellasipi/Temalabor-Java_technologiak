@@ -50,10 +50,15 @@ public class EventService {
             testEvent.getParticipatingUsers().forEach(userEvent -> {
                 User participant = userRepository.findById(userEvent.getUser().getId()).get();
                 Message message = Message.builder().subject(subject).body(body).sentDate(new Date()).build();
-                testEvent.getCreatorUser().addOutgoingMessage(message);
-                participant.addIncomingMessage(message);
-                messageRepository.save(message);
+                sendMessage(testEvent.getCreatorUser(), message, participant);
             });
+
+    }
+
+    private void sendMessage(User sender, Message message, User receiver){
+        sender.addOutgoingMessage(message);
+        receiver.addIncomingMessage(message);
+        messageRepository.save(message);
 
     }
 
