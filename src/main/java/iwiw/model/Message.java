@@ -27,11 +27,8 @@ public class Message {
     @ManyToMany
     private Set<Tag> tags = new HashSet<>();
 
-//    @OneToMany(mappedBy = "message")
-//    private List<MessageUser> sentMessages;
-
     @ManyToOne
-    private User addressee; // TODO: EZZEL KEZDENI VMIT, H NE INTEGER LEGYEN
+    private User addressee;
     private String subject;
     private Date sentDate;
     private String body;
