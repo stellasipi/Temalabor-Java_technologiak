@@ -53,7 +53,6 @@ public class TaggingServiceIT {
 
         assertEquals(tag,tagRepository.findById(1).get());
         message = messageRepository.findAllMessagesByAddresseeAndTagsIs(user, tag).get(0);
-
         assertEquals(message.getTags().contains(tag), true);
     }
 }

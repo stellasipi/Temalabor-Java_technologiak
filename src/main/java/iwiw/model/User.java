@@ -117,8 +117,8 @@ public class User {
         postFriend.friendOf.remove(this);
     }
 
-    public void addParticipatedEvent(Event event){
-       UserEvent userEvent = UserEvent.builder().user(this).event(event).comment("ott leszek").build();
+    public void addParticipatedEvent(Event event, String comment){
+       UserEvent userEvent = UserEvent.builder().user(this).event(event).comment(comment).build();
        userEvent.setId(new UserEventId(this.id,event.getId()));
        participatedEvents.add(userEvent);
        event.getParticipatingUsers().add(userEvent);
