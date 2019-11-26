@@ -58,7 +58,9 @@ public class MessageServiceIT {
 
         //ASSERT
         assertEquals(subject,fromUser.getSentMessages().iterator().next().getSubject());
+        assertEquals(body,fromUser.getSentMessages().iterator().next().getBody());
         assertEquals(subject,toUser.getReceivedMessages().iterator().next().getSubject());
+        assertEquals(body,toUser.getReceivedMessages().iterator().next().getBody());
     }
 
     @Test
@@ -104,8 +106,8 @@ public class MessageServiceIT {
         List<Message> user2Inbox=messageService.listUsersInbox(testUser2);
 
         //ASSERT
-        assertEquals(Optional.of("testMessageSubject1"),Optional.of(user1Inbox.get(0).getSubject()));
-        assertEquals(Optional.of("testMessageSubject2"),Optional.of(user2Inbox.get(0).getSubject()));
+        assertEquals(testMessage1,user1Inbox.get(0));
+        assertEquals(testMessage2,user2Inbox.get(0));
 
     }
 }

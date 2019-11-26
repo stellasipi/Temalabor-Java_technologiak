@@ -41,11 +41,11 @@ public class FriendshipServiceTest {
         friendshipService.createNewFriendshipBetween(testUser1,testUser2);
 
         //ASSERT
-        assertEquals(testUser1.getUserName(),testUser2.getFriends().iterator().next().getUserName());
-        assertEquals(testUser1.getUserName(),testUser2.getFriendOf().iterator().next().getUserName());
+        assertEquals(testUser1,testUser2.getFriends().iterator().next());
+        assertEquals(testUser1,testUser2.getFriendOf().iterator().next());
 
-        assertEquals(testUser2.getUserName(),testUser1.getFriends().iterator().next().getUserName());
-        assertEquals(testUser2.getUserName(),testUser1.getFriendOf().iterator().next().getUserName());
+        assertEquals(testUser2,testUser1.getFriends().iterator().next());
+        assertEquals(testUser2,testUser1.getFriendOf().iterator().next());
     }
 
     @Test
