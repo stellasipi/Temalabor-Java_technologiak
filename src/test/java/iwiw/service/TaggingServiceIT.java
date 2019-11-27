@@ -47,11 +47,12 @@ public class TaggingServiceIT {
         Message message = Message.builder().addressee(user).id(1).sender(sender).body(" ").subject(" ").build();
         message = messageRepository.save(message);
 
-        Tag tag = new Tag(1,"fontos");
+        Tag tag = new Tag(2,"fontos");
         tag = tagRepository.save(tag);
+
         taggingService.addTagToMessage(tag, message);
 
-        assertEquals(tag,tagRepository.findById(1).get());
+        assertEquals(tag,tagRepository.findById(tag.getId()).get());
         message = messageRepository.findAllMessagesByAddresseeAndTagsIs(user, tag).get(0);
         assertEquals(message.getTags().contains(tag), true);
     }
