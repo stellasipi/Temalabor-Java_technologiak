@@ -46,23 +46,8 @@ public class MessageService {
 
         User userSender = userRepository.findById(sender.getId()).get();
         for(User friend : userSender.getFriends()){
-
             User addressee = userRepository.findById(friend.getId()).get();
-            Message messageToSend =  Message.builder()
-                                    .subject(message.getSubject())
-                                    .body(message.getBody())
-                                    .sender(userSender)
-                                    .addressee(addressee)
-                                    .sentDate(new Date(System.currentTimeMillis()))
-                                    .build();
-
-            sender.addOutgoingMessage(messageToSend);
-            addressee.addIncomingMessage(messageToSend);
-            
-            userRepository.save(addressee);
-            userRepository.save(userSender);
-            messageRepository.save(messageToSend);
-
+            sendMessage(sender, addressee, message.getSubject(), message.getBody());
         }
     }
 
