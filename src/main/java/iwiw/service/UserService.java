@@ -1,6 +1,7 @@
 package iwiw.service;
 
 import iwiw.model.User;
+import iwiw.model.UserCreationDto;
 import iwiw.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,11 @@ public class UserService {
         else{
             return false;
         }
+    }
+
+    public void createUser(UserCreationDto user) {
+        User newUser = User.builder().name(user.getFullName()).userName(user.getUserName()).password(user.getPassword())
+                    .build();
+        userRepository.save(newUser);
     }
 }
