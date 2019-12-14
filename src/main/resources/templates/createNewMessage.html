@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Send a new message!</title>
+</head>
+<body>
+
+<div>
+    <button th:onclick="|document.location = '@{/account/}'|" type="button">Back to account</button>
+</div>
+
+<form
+        novalidate th:object="${message}" action="/account/sendMessage" method=post>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+    <div>
+        <label for="addressee">To:</label>
+        <input type="text" required th:field="*{addressee}" id="addressee" minlength="2" maxlength="100">
+    </div>
+
+    <div>
+        <label for="subject">Subject:</label>
+        <input type="text" required th:field="*{subject}" id="subject" minlength="2" maxlength="100">
+    </div>
+
+    <div>
+    <textarea id="textarea" name="text" rows="4" cols="50"
+              th:field="*{text}"> Text of the Message</textarea>
+    </div>
+
+    <button type="submit">
+        Send message!
+    </button>
+
+
+
+</form>
+
+</body>
+
+</html>

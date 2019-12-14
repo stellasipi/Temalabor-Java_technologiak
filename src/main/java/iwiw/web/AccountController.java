@@ -1,8 +1,11 @@
 package iwiw.web;
 
+import iwiw.dto.MessageCreationDto;
+import iwiw.model.Message;
 import iwiw.model.Note;
 import iwiw.dto.NoteCreationDto;
 import iwiw.model.User;
+import iwiw.service.MessageService;
 import iwiw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +26,9 @@ public class AccountController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    MessageService messageService;
 
     @GetMapping("/")
     public String accountPage(Model model, Principal userPrincipal){
@@ -91,6 +97,20 @@ public class AccountController {
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
         Note note = new Note(user, noteCreationDto.getText(), new Date(), noteCreationDto.getTitle());
         userService.addNote(user, note);
+        return "redirect:/account/";
+    }
+
+    @GetMapping("createNewMessage")
+    public String createMessage(Model model){
+        model.addAttribute("message", new MessageCreationDto());
+        return "createNewMessage";
+    }
+
+    @PostMapping("/sendMessage")
+    public String sendMessage(@ModelAttribute MessageCreationDto messageCreationDto, Principal userPrincipal){
+        User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
+        User addressee = userService.findById(Integer.parseInt(messageCreationDto.getAddressee()));
+        messageService.sendMessage(user, addressee, messageCreationDto.getSubject(), messageCreationDto.getText());
         return "redirect:/account/";
     }
 
