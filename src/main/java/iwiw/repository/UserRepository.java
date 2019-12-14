@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     List<User> findByName(String name);
 
     @Query("select u from User u where u.userName = ?1")
-    User findByNameis(String name);
+    User findByNameIs(String name);
 
 
 

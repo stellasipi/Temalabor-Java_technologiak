@@ -1,9 +1,8 @@
-package iwiw.model;
+package iwiw.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,6 +21,4 @@ public class UserCreationDto {
     @Size(min = 8)
     private String password = "";
 
-    @AssertTrue
-    private boolean accepted = false;
 }

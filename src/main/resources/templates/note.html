@@ -12,17 +12,17 @@
 
 <div>
     <label for="title">Title:</label>
-    <label   id="title" name="title" th:text="${title}">Title of the note </label>
+    <label id="title" name="title" th:text="${title}">Title of the note </label>
 </div>
 
 <div>
     <label for="creationTime">Creation Time:</label>
-    <label   id="creationTime" name="creationTime" th:text="${creationTime}">Creation Time </label>
+    <label id="creationTime" name="creationTime" th:text="${creationTime}">Creation Time </label>
 </div>
 
 <div>
-    <textarea id="textarea" name="text"  rows="4" cols="50"  style="resize:none" readonly
-    th:text="${text}"> Text of the note</textarea>
+    <textarea id="textarea" name="text" rows="4" cols="50" style="resize:none" readonly
+              th:text="${text}"> Text of the note</textarea>
 </div>
 
 </body>

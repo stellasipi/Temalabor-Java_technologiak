@@ -34,7 +34,7 @@
         <td>
             <form th:action="@{/account/delete}" method="post">
                 <input type="hidden" th:value="${friend.id}" name="userId"/>
-                <input  type="submit" value="remove friend"/>
+                <input type="submit" value="remove friend"/>
 
             </form>
         </td>
@@ -62,7 +62,7 @@
         <td>
             <form th:action="@{/account/addFriend}" method="post">
                 <input type="hidden" th:value="${unknown.id}" name="userId"/>
-                <input  type="submit" value="add friend"/>
+                <input type="submit" value="add friend"/>
 
             </form>
         </td>
@@ -90,11 +90,11 @@
         <td>
             <form th:action="@{/account/openNote}" method="post">
                 <input type="hidden" th:value="${note.id}" name="noteId"/>
-                <input  type="submit" value="open Note"/>
+                <input type="submit" value="open Note"/>
             </form>
             <form th:action="@{/account/removeNote}" method="post">
                 <input type="hidden" th:value="${note.id}" name="noteId"/>
-                <input  type="submit" value="remove Note"/>
+                <input type="submit" value="remove Note"/>
             </form>
         </td>
     </tr>

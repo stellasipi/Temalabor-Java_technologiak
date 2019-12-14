@@ -2,7 +2,7 @@ package iwiw.service;
 
 import iwiw.model.Note;
 import iwiw.model.User;
-import iwiw.model.UserCreationDto;
+import iwiw.dto.UserCreationDto;
 import iwiw.repository.NotesRepository;
 import iwiw.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public boolean validateAccountLogin(String userName, String password){
-        User user = userRepository.findByNameis(userName);
+        User user = userRepository.findByNameIs(userName);
 
         if(user == null)
             return false;
@@ -61,7 +61,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User findByUserName(String userName){
-        return userRepository.findByNameis(userName);
+        return userRepository.findByNameIs(userName);
     }
 
     @Transactional(readOnly = true)

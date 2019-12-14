@@ -1,4 +1,4 @@
-package iwiw.model;
+package iwiw.dto;
 
 import lombok.Data;
 

@@ -1,9 +1,8 @@
 package iwiw.web;
 
 import iwiw.model.Note;
-import iwiw.model.NoteCreationDto;
+import iwiw.dto.NoteCreationDto;
 import iwiw.model.User;
-import iwiw.model.UserPrincipal;
 import iwiw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,42 +26,29 @@ public class AccountController {
 
     @GetMapping("/")
     public String accountPage(Model model, Principal userPrincipal){
-
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
-
         model.addAttribute("name", user.getName());
-
         Set<User> friends = user.getFriends();
         model.addAttribute("friends", friends);
-
         List<User> allUser = userService.findAll();
         allUser.removeAll(friends);
         allUser.remove(user);
-
         model.addAttribute("unknowns", allUser);
-
         model.addAttribute("notes", user.getNotes());
-
         return "account";
     }
 
     @PostMapping("/delete")
     public String delete(@RequestParam Integer userId, Principal userPrincipal){
-
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
-
         userService.removeFriend(user, userService.findById(userId));
-
-
         return "redirect:/account/";
     }
 
     @PostMapping("/addFriend")
     public String addFriend(@RequestParam Integer userId, Principal userPrincipal){
-
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
         userService.addFriend(user, userService.findById(userId));
-
         return "redirect:/account/";
     }
 
@@ -77,11 +63,9 @@ public class AccountController {
     public String openNote(Model model, @RequestParam Integer noteId, Principal userPrincipal){
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
         Note note = user.getNotes().stream().filter(n -> n.getId().equals(noteId)).findFirst().get();
-
         model.addAttribute("title", note.getTitle());
         model.addAttribute("creationTime", note.getCreationTime().toString());
         model.addAttribute("text", note.getText());
-
         return "note";
     }
 
@@ -91,7 +75,6 @@ public class AccountController {
         servletRequest.getSession().removeAttribute("user");
         SecurityContextHolder.clearContext();
         servletRequest.changeSessionId();
-
         final String baseUrl =
                 ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
         return "redirect:" + baseUrl + "/login";
@@ -106,12 +89,9 @@ public class AccountController {
     @PostMapping("/createNote")
     public String createNote(@ModelAttribute NoteCreationDto noteCreationDto, Principal userPrincipal){
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
-
         Note note = new Note(user, noteCreationDto.getText(), new Date(), noteCreationDto.getTitle());
         userService.addNote(user, note);
         return "redirect:/account/";
     }
-
-
 
 }
