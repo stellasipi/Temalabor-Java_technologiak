@@ -36,11 +36,12 @@ public class IwiwApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 
-
+//
         User user1 = User.builder().name("Teszt Elek").userName("tesztelek").password("tesztelek").build();
         User user2 = User.builder().name("Mezei Virág").userName("mezeivirag").password("mezeivirag").build();
 
-        user2.addNote(new Note());
+        user2.addNote(
+                new Note(user2, "do not procrastinate your homework", new Date(), "test Note"));
 
         userRepository.save(user2);
         userRepository.save(user1);
@@ -64,6 +65,9 @@ public class IwiwApplication implements CommandLineRunner {
         Message testMassage = Message.builder().sender(user1).addressee(user2).body("Szia Virág! Pénteken lesz a szülinapi bulim, tudsz jönni? Elek").sentDate(new Date()).subject("Meghívó").build();
         testMassage.addTag(testTag);
         messageRepository.save(testMassage);
+
+        String testUser = "testUser";
+        userRepository.save(User.builder().name(testUser).userName(testUser).password(testUser).build());
 
 
     }

@@ -1,6 +1,5 @@
 package iwiw.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import java.util.Date;
 @Setter
 @Entity
 @NoArgsConstructor
-@Builder
+//@Builder
 public class Note {
 
     @Id
@@ -22,9 +21,18 @@ public class Note {
     @ManyToOne
     private User creatorUser;
 
+    @Lob
+    private String text;
+
     private Date creationTime;
     private String title;
-    private String text;
+
+    public Note(User creatorUser, String text, Date creationTime, String title) {
+        this.creatorUser = creatorUser;
+        this.text = text;
+        this.creationTime = creationTime;
+        this.title = title;
+    }
 
     public Note(Integer id, User creator, Date creationTime, String title, String text) {
         this.id = id;
