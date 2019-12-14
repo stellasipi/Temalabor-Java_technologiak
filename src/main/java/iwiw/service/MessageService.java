@@ -41,6 +41,16 @@ public class MessageService {
         userRepository.save(toUser); //Meglévő felhasználó updatelése - új fogadott levél miatt
     }
 
+    @Transactional
+    public void sendMessageToAllFriends(User sender, Message message){
+
+        User userSender = userRepository.findById(sender.getId()).get();
+        for(User friend : userSender.getFriends()){
+            User addressee = userRepository.findById(friend.getId()).get();
+            sendMessage(sender, addressee, message.getSubject(), message.getBody());
+        }
+    }
+
     //Egy user postaládájának kilistázása
     @Transactional
     public List<Message> listUsersInbox(User user){

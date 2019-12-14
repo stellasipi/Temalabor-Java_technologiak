@@ -1,9 +1,10 @@
-package iwiw.service;
+package java.iwiw.service;
 
 import iwiw.model.Message;
 import iwiw.model.User;
 import iwiw.repository.MessageRepository;
 import iwiw.repository.UserRepository;
+import iwiw.service.MessageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -108,6 +113,34 @@ public class MessageServiceIT {
         //ASSERT
         assertEquals(testMessage1,user1Inbox.get(0));
         assertEquals(testMessage2,user2Inbox.get(0));
+
+    }
+
+    @Test
+    public void sendMessageToAllFriends(){
+
+        //ARRANGE
+        User userSender = User.builder().userName("sender").name("sender").build();
+        User user1 = User.builder().userName("user1").name("user1").id(1).build();
+        User user2 = User.builder().userName("user2").name("user2").id(2).build();
+        Message message = Message.builder().subject("Körlevél").body("Hello hello sziasztok!").build();
+
+        userSender.addFriend(user1);
+        userSender.addFriend(user2);
+
+        userRepository.save(user1);
+        userRepository.save(user2);
+        messageRepository.save(message);
+
+
+        //ACT
+        messageService.sendMessageToAllFriends(userSender, message);
+
+        //ASSERT
+        assertThat(user1.getReceivedMessages().size(), equalTo(1));
+        assertThat(user2.getReceivedMessages().size(), equalTo(1));
+        assertThat(userRepository.findById(1).get().getReceivedMessages().contains(message), is(true));
+        assertThat(userRepository.findById(2).get().getReceivedMessages().contains(message), is(true));
 
     }
 }

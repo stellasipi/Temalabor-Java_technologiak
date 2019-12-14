@@ -1,19 +1,23 @@
-package iwiw.service;
+package java.iwiw.service;
 
 import iwiw.model.Message;
 import iwiw.model.User;
 import iwiw.repository.MessageRepository;
 import iwiw.repository.UserRepository;
+import iwiw.service.MessageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -99,6 +103,33 @@ public class MessageServiceTest {
         //ASSERT
         assertEquals(testMessage1,user1Inbox.get(0));
         assertEquals(testMessage2,user2Inbox.get(0));
+
+    }
+
+    @Test
+    public void sendMessageToAllFriends(){
+
+        //ARRANGE
+        User userSender = User.builder().userName("sender").name("sender").build();
+        User user1 = User.builder().userName("user1").name("user1").id(1).build();
+        User user2 = User.builder().userName("user2").name("user2").id(2).build();
+        Message message = Message.builder().subject("Körlevél").body("Hello hello sziasztok!").build();
+
+        userSender.addFriend(user1);
+        userSender.addFriend(user2);
+
+        when(userRepository.findById(1)).thenReturn(Optional.of(user1));
+        when(userRepository.findById(2)).thenReturn(Optional.of(user2));
+
+
+        //ACT
+        messageService.sendMessageToAllFriends(userSender, message);
+
+        //ASSERT
+        assertThat(user1.getReceivedMessages().size(), equalTo(1));
+        assertThat(user2.getReceivedMessages().size(), equalTo(1));
+        assertThat(userRepository.findById(1).get().getReceivedMessages().contains(message), is(true));
+        assertThat(userRepository.findById(2).get().getReceivedMessages().contains(message), is(true));
 
     }
 
