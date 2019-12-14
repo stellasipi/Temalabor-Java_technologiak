@@ -134,7 +134,7 @@ public class UserServiceIT {
 
 
         //ACT
-        userService.deleteMessagesWithASpecificTag(tagSpam);
+        userService.deleteMessagesWithASpecificTag(user,tagSpam);
 
         //ASSERT
         assertThat(userRepository.findById(1).get().getReceivedMessages().size(),equalTo(1));
