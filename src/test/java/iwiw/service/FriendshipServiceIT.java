@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -49,11 +51,11 @@ public class FriendshipServiceIT {
         friendshipService.createNewFriendshipBetween(testUser1,testUser2);
 
         //ASSERT
-        assertEquals(testUser1,testUser2.getFriends().iterator().next());
-        assertEquals(testUser1,testUser2.getFriendOf().iterator().next());
+        assertThat(testUser2.getFriends().iterator().next(),equalTo(testUser1));
+        assertThat(testUser2.getFriendOf().iterator().next(),equalTo(testUser1));
 
-        assertEquals(testUser2,testUser1.getFriends().iterator().next());
-        assertEquals(testUser2,testUser1.getFriendOf().iterator().next());
+        assertThat(testUser1.getFriends().iterator().next(),equalTo(testUser2));
+        assertThat(testUser1.getFriendOf().iterator().next(),equalTo(testUser2));
     }
 
     @Test
@@ -79,10 +81,10 @@ public class FriendshipServiceIT {
 
         //ASSERT
 
-        assertEquals(0,testUser2.getFriends().size());
-        assertEquals(0,testUser2.getFriendOf().size());
+        assertThat(testUser2.getFriends().size(),equalTo(0));
+        assertThat(testUser2.getFriendOf().size(),equalTo(0));
 
-        assertEquals(0,testUser1.getFriends().size());
-        assertEquals(0,testUser1.getFriendOf().size());
+        assertThat(testUser1.getFriends().size(),equalTo(0));
+        assertThat(testUser1.getFriendOf().size(),equalTo(0));
     }
 }

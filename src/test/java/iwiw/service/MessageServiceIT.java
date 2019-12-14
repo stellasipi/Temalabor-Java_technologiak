@@ -1,4 +1,4 @@
-package java.iwiw.service;
+package iwiw.service;
 
 import iwiw.model.Message;
 import iwiw.model.User;
@@ -62,10 +62,10 @@ public class MessageServiceIT {
         messageService.sendMessage(fromUser,toUser,subject,body);
 
         //ASSERT
-        assertEquals(subject,fromUser.getSentMessages().iterator().next().getSubject());
-        assertEquals(body,fromUser.getSentMessages().iterator().next().getBody());
-        assertEquals(subject,toUser.getReceivedMessages().iterator().next().getSubject());
-        assertEquals(body,toUser.getReceivedMessages().iterator().next().getBody());
+        assertThat(fromUser.getSentMessages().iterator().next().getSubject(),equalTo(subject));
+        assertThat(fromUser.getSentMessages().iterator().next().getBody(),equalTo(body));
+        assertThat(toUser.getReceivedMessages().iterator().next().getSubject(),equalTo(subject));
+        assertThat(toUser.getReceivedMessages().iterator().next().getBody(),equalTo(body));
     }
 
     @Test
@@ -111,8 +111,8 @@ public class MessageServiceIT {
         List<Message> user2Inbox=messageService.listUsersInbox(testUser2);
 
         //ASSERT
-        assertEquals(testMessage1,user1Inbox.get(0));
-        assertEquals(testMessage2,user2Inbox.get(0));
+        assertThat(user1Inbox.get(0),equalTo(testMessage1));
+        assertThat(user2Inbox.get(0),equalTo(testMessage2));
 
     }
 

@@ -10,7 +10,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -41,11 +42,11 @@ public class FriendshipServiceTest {
         friendshipService.createNewFriendshipBetween(testUser1,testUser2);
 
         //ASSERT
-        assertEquals(testUser1,testUser2.getFriends().iterator().next());
-        assertEquals(testUser1,testUser2.getFriendOf().iterator().next());
+        assertThat(testUser2.getFriends().iterator().next(),equalTo(testUser1));
+        assertThat(testUser2.getFriendOf().iterator().next(),equalTo(testUser1));
 
-        assertEquals(testUser2,testUser1.getFriends().iterator().next());
-        assertEquals(testUser2,testUser1.getFriendOf().iterator().next());
+        assertThat(testUser1.getFriends().iterator().next(),equalTo(testUser2));
+        assertThat(testUser1.getFriendOf().iterator().next(),equalTo(testUser2));
     }
 
     @Test
@@ -68,11 +69,10 @@ public class FriendshipServiceTest {
         friendshipService.deleteFriendshipBetween(testUser1,testUser2);
 
         //ASSERT
+        assertThat(testUser2.getFriends().size(),equalTo(0));
+        assertThat(testUser2.getFriendOf().size(),equalTo(0));
 
-        assertEquals(0,testUser2.getFriends().size());
-        assertEquals(0,testUser2.getFriendOf().size());
-
-        assertEquals(0,testUser1.getFriends().size());
-        assertEquals(0,testUser1.getFriendOf().size());
+        assertThat(testUser1.getFriends().size(),equalTo(0));
+        assertThat(testUser1.getFriendOf().size(),equalTo(0));
     }
 }
