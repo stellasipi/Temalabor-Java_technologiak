@@ -60,12 +60,12 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User getByUserName(String userName){
+    public User findByUserName(String userName){
         return userRepository.findByNameis(userName);
     }
 
     @Transactional(readOnly = true)
-    public User getById(Integer id) {
+    public User findById(Integer id) {
         return userRepository.findById(id).get();
     }
 
@@ -83,6 +83,11 @@ public class UserService {
         Note note = notesRepository.findById(noteId).get();
         a.removeNote(note);
         notesRepository.delete(note);
+    }
+
+    @Transactional
+    public void addNote(User a, Note b){
+        a.addNote(b);
     }
 
 

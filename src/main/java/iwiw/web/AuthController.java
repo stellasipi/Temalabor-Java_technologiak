@@ -54,7 +54,7 @@ public class AuthController {
         if(userService.validateAccountLogin(userName,password)){
             Authentication auth = null;
             try{
-                User user = userService.getByUserName(userName);
+                User user = userService.findByUserName(userName);
                 UserPrincipal userPrincipal = new UserPrincipal(user.getId());
                 List<GrantedAuthority> roles = new ArrayList<>();
                 roles.add(new SimpleGrantedAuthority("ROLE_SimpleRole"));
@@ -86,9 +86,12 @@ public class AuthController {
 
     @PostMapping("/registration")
     public String createUser(@ModelAttribute UserCreationDto user, Model model){
+        if(userService.findByUserName(user.getUserName()) == null){
+            userService.createUser(user);
+            return "redirect:/login";
+        }
 
-        userService.createUser(user);
-        return "redirect:/login";
+        return "redirect:/registration";
 
     }
 

@@ -12,7 +12,6 @@
     <form th:action="@{/account/logout}" method="post">
         <input type="submit" value="logout"/>
     </form>
-
 </div>
 
 <h2>Your friends:</h2>
@@ -102,6 +101,9 @@
     </tbody>
 </table>
 
+<div>
+    <button th:onclick="|document.location = '@{/account/showCreateNotePage}'|" type="button">Create Note</button>
+</div>
 
 </body>
 </html>
