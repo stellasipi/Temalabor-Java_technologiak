@@ -105,8 +105,8 @@ public class User {
     public void addFriend(User newFriend){
        this.friends.add(newFriend);
        this.friendOf.add(newFriend);
-       newFriend.friends.add(this);
-       newFriend.friendOf.add(this);
+//       newFriend.friends.add(this);
+//       newFriend.friendOf.add(this);
     }
 
 

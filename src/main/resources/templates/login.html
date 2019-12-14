@@ -7,22 +7,21 @@
 <body>
 
 <div>
-    <label>Még nincs fiókom</label>
-    <button  th:onclick="|document.location = '@{/registration}'|" type="button">Még nincs fiókom</button>
+    <button  th:onclick="|document.location = '@{/registration}'|" type="button">click here to create an account</button>
 </div>
 
 <form
-        novalidate action="/login" method = post>
+        novalidate action="/login" method = "post">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     <div>
         <label for="UserName">User Name</label>
-        <input type="text" required id="userName" minlength="5" maxlength="100">
+        <input type="text" required id="userName" minlength="5" maxlength="100" name="userName">
     </div>
 
 
     <div>
         <label for="password">Password</label>
-        <input type="password" required  id="password" minlength="5" maxlength="100">
+        <input type="password" required  id="password" minlength="5" maxlength="100" name="password">
     </div>
 
     <button type="submit">

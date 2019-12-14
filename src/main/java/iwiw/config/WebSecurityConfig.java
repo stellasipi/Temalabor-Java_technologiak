@@ -24,12 +24,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+// , "/account/**"
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                 .antMatchers("/resources/**", "/registration", "/login", "/alma").permitAll()
+                .antMatchers("/account/**").hasRole("SimpleRole")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

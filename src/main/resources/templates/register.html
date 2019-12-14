@@ -25,6 +25,10 @@
         <input type="password" required th:field="*{password}" id="password" minlength="5" maxlength="100">
     </div>
 
+    <button type="button" th:onclick="|document.location = '@{/login}'|" >
+        Vissza
+    </button>
+
     <button type="submit">
         Regisztráció
     </button>
