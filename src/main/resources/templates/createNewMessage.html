@@ -15,6 +15,11 @@
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
     <div>
+        <label for="korlevel">Message to every friend</label>
+        <input type="checkbox" th:field="*{isKorlevel}" id="korlevel">
+    </div>
+
+    <div>
         <label for="addressee">To:</label>
         <input type="text" required th:field="*{addressee}" id="addressee" minlength="2" maxlength="100">
     </div>

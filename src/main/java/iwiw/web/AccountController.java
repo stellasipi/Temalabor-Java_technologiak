@@ -125,8 +125,17 @@ public class AccountController {
     @PostMapping("/sendMessage")
     public String sendMessage(@ModelAttribute MessageCreationDto messageCreationDto, Principal userPrincipal){
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
-        User addressee = userService.findById(Integer.parseInt(messageCreationDto.getAddressee()));
-        messageService.sendMessage(user, addressee, messageCreationDto.getSubject(), messageCreationDto.getText());
+        if( !messageCreationDto.getIsKorlevel()) {
+            User addressee = userService.findById(Integer.parseInt(messageCreationDto.getAddressee()));
+            messageService.sendMessage(user, addressee, messageCreationDto.getSubject(), messageCreationDto.getText());
+        }
+        else{
+            Message message =   Message.builder()
+                                .subject(messageCreationDto.getSubject())
+                                .body(messageCreationDto.getText())
+                                .build();
+            messageService.sendMessageToAllFriends(user, message);
+        }
         return "redirect:/account/";
     }
 
