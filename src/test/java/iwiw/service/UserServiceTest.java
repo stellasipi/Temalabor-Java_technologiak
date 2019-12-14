@@ -112,7 +112,6 @@ public class UserServiceTest {
         message3.addTag(tagSpam);
 
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
-        when(userRepository.findById(2)).thenReturn(Optional.of(userAdditional));
 
         //ACT
         userService.deleteMessagesWithASpecificTag(user,tagSpam);

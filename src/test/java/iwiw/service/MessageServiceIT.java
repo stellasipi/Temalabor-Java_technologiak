@@ -52,20 +52,25 @@ public class MessageServiceIT {
                 .userName("toUser")
                 .name("To User")
                 .build();
-        String subject="Teszt üzi";
-        String body="Ez egy teszt üzenet Fromtól Tonak. Hellooo";
+        /*String subject="Teszt üzi";
+        String body="Ez egy teszt üzenet Fromtól Tonak. Hellooo";*/
+        Message message=Message.builder()
+                .id(1)
+                .subject("Teszt üzi")
+                .body("Ez egy teszt üzenet Fromtól Tonak. Hellooo")
+                .build();
 
         userRepository.save(fromUser);
         userRepository.save(toUser);
 
         //ACT
-        messageService.sendMessage(fromUser,toUser,subject,body);
+        messageService.sendMessage(fromUser,toUser,message);
 
         //ASSERT
-        assertThat(fromUser.getSentMessages().iterator().next().getSubject(),equalTo(subject));
-        assertThat(fromUser.getSentMessages().iterator().next().getBody(),equalTo(body));
-        assertThat(toUser.getReceivedMessages().iterator().next().getSubject(),equalTo(subject));
-        assertThat(toUser.getReceivedMessages().iterator().next().getBody(),equalTo(body));
+        assertThat(fromUser.getSentMessages().iterator().next().getSubject(),equalTo(message.getSubject()));
+        assertThat(fromUser.getSentMessages().iterator().next().getBody(),equalTo(message.getBody()));
+        assertThat(toUser.getReceivedMessages().iterator().next().getSubject(),equalTo(message.getSubject()));
+        assertThat(toUser.getReceivedMessages().iterator().next().getBody(),equalTo(message.getBody()));
     }
 
     @Test
@@ -121,13 +126,14 @@ public class MessageServiceIT {
 
         //ARRANGE
         User userSender = User.builder().userName("sender").name("sender").build();
-        User user1 = User.builder().userName("user1").name("user1").id(1).build();
-        User user2 = User.builder().userName("user2").name("user2").id(2).build();
+        User user1 = User.builder().userName("user1").name("user1").build();
+        User user2 = User.builder().userName("user2").name("user2").build();
         Message message = Message.builder().subject("Körlevél").body("Hello hello sziasztok!").build();
 
         userSender.addFriend(user1);
         userSender.addFriend(user2);
 
+        userRepository.save(userSender);
         userRepository.save(user1);
         userRepository.save(user2);
         messageRepository.save(message);
@@ -139,8 +145,8 @@ public class MessageServiceIT {
         //ASSERT
         assertThat(user1.getReceivedMessages().size(), equalTo(1));
         assertThat(user2.getReceivedMessages().size(), equalTo(1));
-        assertThat(userRepository.findById(1).get().getReceivedMessages().contains(message), is(true));
-        assertThat(userRepository.findById(2).get().getReceivedMessages().contains(message), is(true));
+        assertThat(userRepository.findById(user1.getId()).get().getReceivedMessages().contains(message), is(true));
+        assertThat(userRepository.findById(user2.getId()).get().getReceivedMessages().contains(message), is(true));
 
     }
 }

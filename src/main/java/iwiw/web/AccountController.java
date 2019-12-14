@@ -127,7 +127,8 @@ public class AccountController {
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
         if( !messageCreationDto.getIsKorlevel()) {
             User addressee = userService.findById(Integer.parseInt(messageCreationDto.getAddressee()));
-            messageService.sendMessage(user, addressee, messageCreationDto.getSubject(), messageCreationDto.getText());
+            //messageService.sendMessage(user, addressee, messageCreationDto.getSubject(), messageCreationDto.getText());
+            messageService.sendMessage(user, addressee, new Message(messageCreationDto.getSubject(),new Date(System.currentTimeMillis()),messageCreationDto.getText()));
         }
         else{
             Message message =   Message.builder()

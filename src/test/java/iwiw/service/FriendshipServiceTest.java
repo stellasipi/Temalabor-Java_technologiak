@@ -37,6 +37,7 @@ public class FriendshipServiceTest {
                 .build();
 
         when(userRepository.findById(testUser1.getId())).thenReturn(Optional.of(testUser1));
+        when(userRepository.findById(testUser2.getId())).thenReturn(Optional.of(testUser2));
 
         //ACT
         friendshipService.createNewFriendshipBetween(testUser1,testUser2);

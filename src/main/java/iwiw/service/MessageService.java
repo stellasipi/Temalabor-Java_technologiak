@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -26,28 +27,21 @@ public class MessageService {
     TagRepository tagRepository;
 
     @Transactional
-    public void sendMessage(User fromUser,User toUser,String subject,String body){
-        Message message = Message.builder()
-                .sender(fromUser)
-                .addressee(toUser)
-                .body(body)
-                .sentDate(new Date(System.currentTimeMillis()))
-                .subject(subject)
-                .build();
+    public void sendMessage(User fromUser,User toUser,/*String subject,String body*/Message message){
         userRepository.findById(fromUser.getId()).get().addOutgoingMessage(message); //feladó beállítása
         userRepository.findById(toUser.getId()).get().addIncomingMessage(message); //címzett beállítása
         messageRepository.save(message); //Új levél mentése
-        userRepository.save(fromUser); //Meglévő felhasználó updatelése - új küldött levél felvétele miatt
-        userRepository.save(toUser); //Meglévő felhasználó updatelése - új fogadott levél miatt
     }
 
     @Transactional
     public void sendMessageToAllFriends(User sender, Message message){
 
         User userSender = userRepository.findById(sender.getId()).get();
-        for(User friend : userSender.getFriends()){
+        for(Iterator<User> iterator=userSender.getFriends().iterator();iterator.hasNext();){
+            User friend=iterator.next();
             User addressee = userRepository.findById(friend.getId()).get();
-            sendMessage(sender, addressee, message.getSubject(), message.getBody());
+            sendMessage(sender, addressee, message);
+
         }
     }
 
