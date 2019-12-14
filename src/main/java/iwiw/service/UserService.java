@@ -1,10 +1,14 @@
 package iwiw.service;
 
+import iwiw.model.Message;
+import iwiw.model.Tag;
 import iwiw.model.User;
 import iwiw.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Iterator;
 
 
 @Service
@@ -31,6 +35,22 @@ public class UserService {
         }
         else{
             return false;
+        }
+    }
+
+    @Transactional
+    public void deleteMessagesWithASpecificTag(User user, Tag tagSpam) {
+        User userToChange=userRepository.findById(user.getId()).get();
+        /*for (Message message:userToChange.getReceivedMessages()) {
+            if(message.getTags().contains(tagSpam)){
+                userToChange.getReceivedMessages().remove(message);
+            }
+        } */
+        for(Iterator<Message> iterator=userToChange.getReceivedMessages().iterator();iterator.hasNext();){
+            Message message=iterator.next();
+            if(message.getTags().contains(tagSpam)){
+                iterator.remove();
+            }
         }
     }
 }
