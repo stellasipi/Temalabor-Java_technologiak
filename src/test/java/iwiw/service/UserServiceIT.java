@@ -74,24 +74,24 @@ public class UserServiceIT {
     public void testDeleteMessagesWithASpecificTag(){
         //ARRANGE
         User user= User.builder()
-                .name("Teszt Elek")
-                .userName("tesztelek")
-                .password("tesztelek")
-                .id(1)
+                .name("Teszt Bence")
+                .userName("tesztbence")
+                .password("tesztbence")
+                //.id(1)
                 .build();
         User userAdditional=User.builder()
                 .name("Teszt Dóra")
                 .userName("tesztdora")
                 .password("tesztdora")
-                .id(2)
+                //.id(2)
                 .build();
         Tag tagImportant = Tag.builder()
                 .name("Fontos")
-                .id(1)
+                //.id(1)
                 .build();
         Tag tagSpam = Tag.builder()
                 .name("Spam")
-                .id(2)
+                //.id(2)
                 .build();
         Message message1=Message.builder()
                 .sender(userAdditional)
@@ -137,8 +137,8 @@ public class UserServiceIT {
         userService.deleteMessagesWithASpecificTag(user,tagSpam);
 
         //ASSERT
-        assertThat(userRepository.findById(1).get().getReceivedMessages().size(),equalTo(1));
-        assertThat(userRepository.findById(1).get().getReceivedMessages().iterator().next().getTags(),equalTo(tagImportant.getName()));
+        assertThat(userRepository.findById(user.getId()).get().getReceivedMessages().size(),equalTo(1));
+        assertThat(userRepository.findById(user.getId()).get().getReceivedMessages().iterator().next().getTags().iterator().next(),equalTo(tagImportant));
 
     }
 }

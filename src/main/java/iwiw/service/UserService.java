@@ -41,11 +41,6 @@ public class UserService {
     @Transactional
     public void deleteMessagesWithASpecificTag(User user, Tag tagSpam) {
         User userToChange=userRepository.findById(user.getId()).get();
-        /*for (Message message:userToChange.getReceivedMessages()) {
-            if(message.getTags().contains(tagSpam)){
-                userToChange.getReceivedMessages().remove(message);
-            }
-        } */
         for(Iterator<Message> iterator=userToChange.getReceivedMessages().iterator();iterator.hasNext();){
             Message message=iterator.next();
             if(message.getTags().contains(tagSpam)){

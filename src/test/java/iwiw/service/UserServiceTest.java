@@ -61,9 +61,9 @@ public class UserServiceTest {
     public void testDeleteMessagesWithASpecificTag(){
         //ARRANGE
         User user= User.builder()
-                .name("Teszt Elek")
-                .userName("tesztelek")
-                .password("tesztelek")
+                .name("Teszt Bence")
+                .userName("tesztbence")
+                .password("tesztbence")
                 .id(1)
                 .build();
         User userAdditional=User.builder()
@@ -119,7 +119,7 @@ public class UserServiceTest {
 
         //ASSERT
         assertThat(userRepository.findById(1).get().getReceivedMessages().size(),equalTo(1));
-        assertThat(userRepository.findById(1).get().getReceivedMessages().iterator().next().getTags(),equalTo(tagImportant.getName()));
+        assertThat(userRepository.findById(1).get().getReceivedMessages().iterator().next().getTags().iterator().next(),equalTo(tagImportant));
 
     }
 }
