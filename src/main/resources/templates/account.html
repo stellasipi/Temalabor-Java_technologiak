@@ -105,5 +105,35 @@
     <button th:onclick="|document.location = '@{/account/showCreateNotePage}'|" type="button">Create Note</button>
 </div>
 
+
+<table>
+    <thead>
+    <tr>
+        <th> Subject</th>
+        <th> Date</th>
+        <th> actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${messages.empty}">
+        <td colspan="3"> You have no messages yet!</td>
+    </tr>
+    <tr th:each="message : ${messages}">
+        <td><span th:text="${message.subject}"> Subject </span></td>
+        <td><span th:text="${message.sentDate}"> Date </span></td>
+        <td>
+            <form th:action="@{/account/openMessage}" method="post">
+                <input type="hidden" th:value="${message.id}" name="messageId"/>
+                <input type="submit" value="open Message"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <button th:onclick="|document.location = '@{/account/createNewMessage}'|" type="button">Send new message</button>
+</div>
+
 </body>
 </html>

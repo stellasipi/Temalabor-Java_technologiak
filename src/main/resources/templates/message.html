@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Note</title>
+</head>
+<body>
+
+    <div>
+        <button th:onclick="|document.location = '@{/account/}'|" type="button">Back to account</button>
+    </div>
+
+    <div>
+        <label for="sender">Sender:</label>
+        <label id="sender" name="sender" th:text="${sender}">Sender </label>
+    </div>
+
+    <div>
+        <label for="subject">Subject:</label>
+        <label id="subject" name="subject" th:text="${subject}">Subject </label>
+    </div>
+
+    <div>
+        <label for="sentDate">Date of sending:</label>
+        <label id="sentDate" name="sentDate" th:text="${sentDate}">Date </label>
+    </div>
+
+    <div>
+    <textarea id="textarea" name="text" rows="4" cols="50" style="resize:none" readonly
+              th:text="${text}"> Text of the message</textarea>
+    </div>
+
+
+
+
+</body>
+</html>

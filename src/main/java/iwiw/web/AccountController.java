@@ -5,6 +5,7 @@ import iwiw.model.Message;
 import iwiw.model.Note;
 import iwiw.dto.NoteCreationDto;
 import iwiw.model.User;
+import iwiw.repository.MessageRepository;
 import iwiw.service.MessageService;
 import iwiw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class AccountController {
     @Autowired
     MessageService messageService;
 
+    @Autowired
+    MessageRepository messageRepository;
+
     @GetMapping("/")
     public String accountPage(Model model, Principal userPrincipal){
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
@@ -41,6 +45,7 @@ public class AccountController {
         allUser.remove(user);
         model.addAttribute("unknowns", allUser);
         model.addAttribute("notes", user.getNotes());
+        model.addAttribute("messages", user.getReceivedMessages());
         return "account";
     }
 
@@ -73,6 +78,17 @@ public class AccountController {
         model.addAttribute("creationTime", note.getCreationTime().toString());
         model.addAttribute("text", note.getText());
         return "note";
+    }
+
+    @PostMapping("openMessage")
+    public String openMessage(Model model, @RequestParam Integer messageId, Principal userPrincipal){
+        //User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
+        Message message = messageRepository.findById(messageId).get();
+        model.addAttribute("subject", message.getSubject());
+        model.addAttribute("sender", message.getSender().toString());
+        model.addAttribute("sentDate", message.getSentDate().toString());
+        model.addAttribute("text", message.getBody());
+        return "message";
     }
 
     @PostMapping("logout")
