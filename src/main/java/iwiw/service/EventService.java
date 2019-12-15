@@ -1,9 +1,6 @@
 package iwiw.service;
 
-import iwiw.model.Event;
-import iwiw.model.Message;
-import iwiw.model.Place;
-import iwiw.model.User;
+import iwiw.model.*;
 import iwiw.repository.EventRepository;
 import iwiw.repository.MessageRepository;
 import iwiw.repository.UserRepository;
@@ -12,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.Iterator;
 
 @Service
 public class EventService {
@@ -36,7 +34,21 @@ public class EventService {
     public void changeEventDate(Event event, Date date){
         eventRepository.findById(event.getId()).get().setDate(date);
         eventRepository.save(event);
+    }
 
+    @Transactional
+    public void deleteEvent(Event event){
+        /*for(Iterator<User> iterator=userSender.getFriends().iterator();iterator.hasNext();){
+            User friend=iterator.next();
+            User addressee = userRepository.findById(friend.getId()).get();
+            sendMessage(sender, addressee, message);
+        }*/
+        for(Iterator<UserEvent> iterator=event.getParticipatingUsers().iterator();iterator.hasNext();){
+            UserEvent userEvent=iterator.next();
+            User user=userRepository.findById(userEvent.getUser().getId()).get();
+            user.getParticipatedEvents().remove(userEvent);
+            iterator.remove();
+        }
     }
 
     @Transactional

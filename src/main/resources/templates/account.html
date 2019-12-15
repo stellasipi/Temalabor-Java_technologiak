@@ -154,11 +154,13 @@
     <tr th:each="createdEvent : ${createdEvents}">
         <td><span th:text="${createdEvent.name}"> Name </span></td>
         <td><span th:text="${createdEvent.date}"> Date </span></td>
-<!--        <td><span th:text="${createdEvent.place_name} + ', ' + ${createdEvent.place_city} + ', ' + ${createdEvent.place_country}"> Location </span></td>-->
+        <td><span th:text="${createdEvent.place}"> Location </span></td>
         <td>
-            <form th:action="@{/event/openCreatedEvent}" method="post">
-                <input type="hidden" th:value="${createdEvent.id}" name="eventId"/>
-                <input type="submit" value="open Event"/>
+            <form th:object="${createdEvent}" th:action="@{/event/{id}(id=${createdEvent.id})}" th:method="delete">
+<!--            <form th:action="@{/event/{id}(id=${createdEvent.id})}" method="delete">-->
+<!--                <input type="hidden" th:value="${createdEvent.id}" name="eventId"/>-->
+                <input type="hidden" name="deleteEvent" value="delete">
+                <input type="submit" value="delete Event"/>
             </form>
         </td>
     </tr>
@@ -166,7 +168,7 @@
 </table>
 
 <div>
-    <button th:onclick="|document.location = '@{/event/create}'|" type="button">Create new event</button>
+    <button th:onclick="|document.location = '@{/event/showCreatEventPage}'|" type="button">Create new event</button>
 </div>
 
 <h3>Invited:</h3>

@@ -39,11 +39,13 @@ public class EventController {
         Event event = user.getCreatedEvents().stream().filter(n -> n.getId().equals(eventId)).findFirst().get();
         model.addAttribute("name", event.getName());
         model.addAttribute("date", event.getDate().toString());
-        model.addAttribute("location", event.getPlace().toString());
+        model.addAttribute("place_name",event.getPlace().getName());
+        model.addAttribute("place_city", event.getPlace().getCity());
+        model.addAttribute("place_country", event.getPlace().getCountry());
         return "createdEvent";
     }
 
-    @GetMapping("showCreatedEventPage")
+    @GetMapping("showCreatEventPage")
     public String showCreatedEventPage(Model model){
         model.addAttribute("event",new EventCreationDto());
         return "createEvent";
@@ -55,8 +57,10 @@ public class EventController {
         Event event = user.getParticipatedEvents().stream().filter(n -> n.getId().equals(eventId)).findFirst().get();
         model.addAttribute("name", event.getName());
         model.addAttribute("date", event.getDate().toString());
-        model.addAttribute("location", event.getPlace().toString());
-        return "invitedEvent";
+        model.addAttribute("place_name",event.getPlace().getName());
+        model.addAttribute("place_city", event.getPlace().getCity());
+        model.addAttribute("place_country", event.getPlace().getCountry());
+        return "invitesEvent";
     }*/
 
 
@@ -64,8 +68,8 @@ public class EventController {
     @PostMapping("/create")
     public String createEvent(@ModelAttribute EventCreationDto eventCreationDto, Principal userPrincipal){
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
-        Event event = new Event(user, eventCreationDto.getName(), new Date(), new Place(eventCreationDto.getName(),eventCreationDto.getPlace_city(),eventCreationDto.getPlace_country()));
-        user.addCreatedEvent(event);
+        Event event = new Event(user, eventCreationDto.getName(), new Date(), new Place(eventCreationDto.getPlace_name(),eventCreationDto.getPlace_city(),eventCreationDto.getPlace_country()));
+        userService.createEvent(user,event);
         return "redirect:/account/";
     }
 
@@ -101,8 +105,10 @@ public class EventController {
 
     //esemény törlése
     @DeleteMapping("/{id}")
-    public void deleteEvent(@PathVariable Integer id){
-        eventRepository.deleteById(id);
+    public String deleteEvent(@PathVariable Integer id){
+        Event event=eventRepository.findById(id).get();
+        eventService.deleteEvent(event);
+        return "redirect:/account/";
     }
 
     //esemény módosítása ???

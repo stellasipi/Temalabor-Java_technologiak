@@ -1,9 +1,6 @@
 package iwiw.service;
 
-import iwiw.model.Message;
-import iwiw.model.Tag;
-import iwiw.model.Note;
-import iwiw.model.User;
+import iwiw.model.*;
 import iwiw.dto.UserCreationDto;
 import iwiw.repository.NotesRepository;
 import iwiw.repository.UserRepository;
@@ -54,6 +51,12 @@ public class UserService {
                 iterator.remove();
             }
         }
+    }
+
+    @Transactional
+    public void createEvent(User user, Event event){
+        user.addCreatedEvent(event);
+        userRepository.save(user);
     }
 
     @Transactional

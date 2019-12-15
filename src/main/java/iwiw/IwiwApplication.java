@@ -48,7 +48,7 @@ public class IwiwApplication implements CommandLineRunner {
         user1.addFriend(user2);
 
         Place testPlace = Place.builder().name("Deák Ferenc tér").city("Budapest").country("Magyarország").build();
-        Event testEvent = Event.builder().name("Szülinapi buli").date(new Date()).build();
+        Event testEvent = Event.builder().name("Szülinapi buli").date(new Date(2019-1900,5,9)).build();
 
         testPlace.addEvent(testEvent);
 
