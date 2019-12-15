@@ -10,12 +10,13 @@ import java.util.Set;
 @Setter
 @Entity
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "USER")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @Builder.Default
@@ -39,9 +40,9 @@ public class User {
     private  Set<Message> receivedMessages = new HashSet<>();
 
     /*
-    https://stackoverflow.com/questions/1656113/hibernate-recursive-many-to-many-association-with-the-same-entity
-    top válasz
-     */
+        https://stackoverflow.com/questions/1656113/hibernate-recursive-many-to-many-association-with-the-same-entity
+        top válasz
+         */
     @Builder.Default
     @ManyToMany
     @JoinTable(name="tbl_friends",
@@ -62,7 +63,15 @@ public class User {
     private String password;
     private String userName;
 
-   public void addNote(Note note){
+    public User(Integer id, String name, String userName, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.userName = userName;
+    }
+
+
+    public void addNote(Note note){
        note.setCreatorUser(this);
        this.notes.add(note);
    }
@@ -82,21 +91,20 @@ public class User {
        this.createdEvents.remove(event);
    }
 
-    public void addMessage(Message message){
+    public void addOutgoingMessage(Message message){
         message.setSender(this);
         this.sentMessages.add(message);
     }
 
-    public void removeMessage(Message message){
-        message.setSender(null);
-        this.sentMessages.remove(message);
+    public void addIncomingMessage(Message message){
+        message.setAddressee(this);
+        this.receivedMessages.add(message);
     }
+
 
     public void addFriend(User newFriend){
        this.friends.add(newFriend);
        this.friendOf.add(newFriend);
-       newFriend.friends.add(this);
-       newFriend.friendOf.add(this);
     }
 
 
@@ -108,8 +116,8 @@ public class User {
         postFriend.friendOf.remove(this);
     }
 
-    public void addParticipatedEvent(Event event){
-       UserEvent userEvent = UserEvent.builder().user(this).event(event).comment("ott leszek").build();
+    public void addParticipatedEvent(Event event, String comment){
+       UserEvent userEvent = UserEvent.builder().user(this).event(event).comment(comment).build();
        userEvent.setId(new UserEventId(this.id,event.getId()));
        participatedEvents.add(userEvent);
        event.getParticipatingUsers().add(userEvent);

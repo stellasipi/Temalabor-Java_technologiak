@@ -2,10 +2,7 @@ package iwiw.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +15,7 @@ import java.util.Set;
 public class Place {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @Builder.Default
@@ -35,6 +32,11 @@ public class Place {
         this.city = city;
         this.country = country;
     }
+    public Place(String name, String city, String country) {
+        this.name = name;
+        this.city = city;
+        this.country = country;
+    }
 
     public void addEvent(Event event){
         event.setPlace(this);
@@ -44,5 +46,10 @@ public class Place {
     public void removeEvent(Event event){
         event.setPlace(null);
         this.events.remove(event);
+    }
+
+    @Override
+    public String toString() {
+        return String.format(name+", "+city+", "+country);
     }
 }

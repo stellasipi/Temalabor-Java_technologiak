@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account</title>
+</head>
+<body>
+
+<h1 th:text="${name}">Name of User</h1>
+
+<div>
+    <form th:action="@{/account/logout}" method="post">
+        <input type="submit" value="logout"/>
+    </form>
+</div>
+
+<h2>Your friends:</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th> Name</th>
+        <th> id</th>
+        <th> action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${friends.empty}">
+        <td colspan="3"> You have no friends yet</td>
+    </tr>
+    <tr th:each="friend : ${friends}">
+        <td><span th:text="${friend.name}"> Name </span></td>
+        <td><span th:text="${friend.id}"> id </span></td>
+        <td>
+            <form th:action="@{/account/delete}" method="post">
+                <input type="hidden" th:value="${friend.id}" name="userId"/>
+                <input type="submit" value="remove friend"/>
+
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>People to know</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th> Name</th>
+        <th> id</th>
+        <th> action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${unknowns.empty}">
+        <td colspan="3"> You know every people!</td>
+    </tr>
+    <tr th:each="unknown : ${unknowns}">
+        <td><span th:text="${unknown.name}"> Name </span></td>
+        <td><span th:text="${unknown.id}"> id </span></td>
+        <td>
+            <form th:action="@{/account/addFriend}" method="post">
+                <input type="hidden" th:value="${unknown.id}" name="userId"/>
+                <input type="submit" value="add friend"/>
+
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Your notes</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th> Title</th>
+        <th> Creation Time</th>
+        <th> actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${notes.empty}">
+        <td colspan="3"> You have no notes yet!</td>
+    </tr>
+    <tr th:each="note : ${notes}">
+        <td><span th:text="${note.title}"> Title </span></td>
+        <td><span th:text="${note.creationTime}"> Creation Time </span></td>
+        <td>
+            <form th:action="@{/account/openNote}" method="post">
+                <input type="hidden" th:value="${note.id}" name="noteId"/>
+                <input type="submit" value="open Note"/>
+            </form>
+            <form th:action="@{/account/removeNote}" method="post">
+                <input type="hidden" th:value="${note.id}" name="noteId"/>
+                <input type="submit" value="remove Note"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <button th:onclick="|document.location = '@{/account/showCreateNotePage}'|" type="button">Create Note</button>
+</div>
+
+<h2>Your messages</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th> Subject</th>
+        <th> Date</th>
+        <th> actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${messages.empty}">
+        <td colspan="3"> You have no messages yet!</td>
+    </tr>
+    <tr th:each="message : ${messages}">
+        <td><span th:text="${message.subject}"> Subject </span></td>
+        <td><span th:text="${message.sentDate}"> Date </span></td>
+        <td>
+            <form th:action="@{/account/openMessage}" method="post">
+                <input type="hidden" th:value="${message.id}" name="messageId"/>
+                <input type="submit" value="open Message"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <button th:onclick="|document.location = '@{/account/createNewMessage}'|" type="button">Send new message</button>
+</div>
+
+<h2>Your events</h2>
+<h3>Created:</h3>
+<table>
+    <thead>
+    <tr>
+        <th> Name</th>
+        <th> Date</th>
+        <th> Location</th>
+        <th> actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${createdEvents.empty}">
+        <td colspan="4"> You have no events yet!</td>
+    </tr>
+    <tr th:each="createdEvent : ${createdEvents}">
+        <td><span th:text="${createdEvent.name}"> Name </span></td>
+        <td><span th:text="${createdEvent.date}"> Date </span></td>
+        <td><span th:text="${createdEvent.place}"> Location </span></td>
+        <td>
+            <form th:object="${createdEvent}" th:action="@{/event/delete}" th:method="post">
+                <input type="hidden" th:value="${createdEvent.id}" name="eventId"/>
+                <input type="submit" value="delete Event"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <button th:onclick="|document.location = '@{/event/showCreateEventPage}'|" type="button">Create new event</button>
+</div>
+
+<h3>Invited:</h3>
+<table>
+    <thead>
+    <tr>
+        <th> Name</th>
+        <th> Date</th>
+        <th> Location</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${invitedEvents.empty}">
+        <td colspan="3"> You have no invitations yet!</td>
+    </tr>
+    <tr th:each="invitedEvent : ${invitedEvents}">
+        <td><span th:text="${invitedEvent.event.name}"> Name </span></td>
+        <td><span th:text="${invitedEvent.event.date}"> Date </span></td>
+        <td><span th:text="${invitedEvent.event.place}"> Location </span></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

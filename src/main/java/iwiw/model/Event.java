@@ -16,7 +16,7 @@ import java.util.Set;
 public class Event {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @ManyToOne
@@ -34,6 +34,13 @@ public class Event {
 
     public Event(Integer id, User creator, String name, Date date, Place place) {
         this.id = id;
+        this.creatorUser = creator;
+        this.name = name;
+        this.date = date;
+        this.place = place;
+    }
+
+    public Event(User creator, String name, Date date, Place place) {
         this.creatorUser = creator;
         this.name = name;
         this.date = date;

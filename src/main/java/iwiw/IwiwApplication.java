@@ -34,35 +34,41 @@ public class IwiwApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user1 = User.builder().name("teszt1").userName("teszt1").password("teszt1").build();
-        User user2 = User.builder().name("teszt2").userName("teszt2").password("teszt2").build();
 
-        user2.addNote(new Note());
+
+//
+        User user1 = User.builder().name("Teszt Elek").userName("tesztelek").password("tesztelek").build();
+        User user2 = User.builder().name("Mezei Virág").userName("mezeivirag").password("mezeivirag").build();
+
+        user2.addNote(
+                new Note(user2, "do not procrastinate your homework", new Date(), "test Note"));
 
         userRepository.save(user2);
         userRepository.save(user1);
         user1.addFriend(user2);
 
-        Place testPlace = Place.builder().name("testPlace").city("testCity").country("testCountry").build();
-        Event testEvent = Event.builder().name("testEventName").date(new Date()).build();
+        Place testPlace = Place.builder().name("Deák Ferenc tér").city("Budapest").country("Magyarország").build();
+        Event testEvent = Event.builder().name("Szülinapi buli").date(new Date(2019-1900,5,9)).build();
 
         testPlace.addEvent(testEvent);
 
         eventRepository.save(testEvent);
         user1.addCreatedEvent(testEvent);
 
-        user2.addParticipatedEvent(testEvent);
+        user2.addParticipatedEvent(testEvent, "comment");
 
         userRepository.save(user1);
+        userRepository.save(user2);
 
-        Tag testTag = Tag.builder().name("tesztTag").build();
+        Tag testTag = Tag.builder().name("Fontos").build();
         tagRepository.save(testTag);
 
-        Message testMassage = Message.builder().sender(user1).addressee(user2).body("body").sentDate(new Date()).subject("subject").build();
+        Message testMassage = Message.builder().sender(user1).addressee(user2).body("Szia Virág! Pénteken lesz a szülinapi bulim, tudsz jönni? Elek").sentDate(new Date()).subject("Meghívó").build();
         testMassage.addTag(testTag);
         messageRepository.save(testMassage);
 
-
+        String testUser = "testUser";
+        userRepository.save(User.builder().name(testUser).userName(testUser).password(testUser).build());
 
 
     }

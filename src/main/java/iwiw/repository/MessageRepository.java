@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message,Integer> {
 
-    ArrayList<Message> findMessagesByAddressee(User user); //Címzett alapján levelek listázása
+    List<Message> findMessagesByAddressee(User user); //Címzett alapján levelek listázása
     ArrayList<Message> findAllMessagesByAddresseeAndTagsIs(User user, Tag tag);
 
 }
