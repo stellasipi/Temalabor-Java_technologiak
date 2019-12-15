@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crete a new Event</title>
+</head>
+<body>
+
+<div>
+    <button th:onclick="|document.location = '@{/account/}'|" type="button">Back to account</button>
+</div>
+
+<form
+        novalidate th:object="${event}" action="/event/create" method=post>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" required th:field="*{name}" id="name" minlength="3" maxlength="100">
+    </div>
+
+
+    <div>
+        <label for="place_name">Place name:</label>
+        <input type="text" required th:field="*{place_name}" id="place_name" minlength="3" maxlength="100">
+    </div>
+
+    <div>
+        <label for="place_city">City:</label>
+        <input type="text" required th:field="*{place_city}" id="place_city" minlength="3" maxlength="100">
+    </div>
+
+    <div>
+        <label for="place_country">Country:</label>
+        <input type="text" required th:field="*{place_country}" id="place_country" minlength="3" maxlength="100">
+    </div>
+
+    <div>
+        <label for="date">Palce name:</label>
+        <input type="text" required th:field="*{date}" id="date" minlength="5" maxlength="100">
+    </div>
+
+    <button type="submit">
+        Create Event
+    </button>
+</form>
+
+</body>
+</html>

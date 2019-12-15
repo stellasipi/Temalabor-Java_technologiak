@@ -1,9 +1,8 @@
 package iwiw.web;
 
-import iwiw.dto.MessageCreationDto;
+import iwiw.dto.*;
 import iwiw.model.Message;
 import iwiw.model.Note;
-import iwiw.dto.NoteCreationDto;
 import iwiw.model.User;
 import iwiw.repository.MessageRepository;
 import iwiw.service.MessageService;
@@ -46,6 +45,8 @@ public class AccountController {
         model.addAttribute("unknowns", allUser);
         model.addAttribute("notes", user.getNotes());
         model.addAttribute("messages", user.getReceivedMessages());
+        model.addAttribute("createdEvents",user.getCreatedEvents());
+        model.addAttribute("invitedEvents",user.getParticipatedEvents());
         return "account";
     }
 

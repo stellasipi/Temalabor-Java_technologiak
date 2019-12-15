@@ -32,6 +32,11 @@ public class Place {
         this.city = city;
         this.country = country;
     }
+    public Place(String name, String city, String country) {
+        this.name = name;
+        this.city = city;
+        this.country = country;
+    }
 
     public void addEvent(Event event){
         event.setPlace(this);
@@ -41,5 +46,10 @@ public class Place {
     public void removeEvent(Event event){
         event.setPlace(null);
         this.events.remove(event);
+    }
+
+    @Override
+    public String toString() {
+        return String.format(name+", "+city+", "+country);
     }
 }

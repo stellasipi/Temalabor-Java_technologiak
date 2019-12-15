@@ -105,6 +105,7 @@
     <button th:onclick="|document.location = '@{/account/showCreateNotePage}'|" type="button">Create Note</button>
 </div>
 
+<h2>Your messages</h2>
 
 <table>
     <thead>
@@ -134,6 +135,56 @@
 <div>
     <button th:onclick="|document.location = '@{/account/createNewMessage}'|" type="button">Send new message</button>
 </div>
+
+<h2>Your events</h2>
+<h3>Created:</h3>
+<table>
+    <thead>
+    <tr>
+        <th> Name</th>
+        <th> Date</th>
+        <th> Location</th>
+        <th> actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${createdEvents.empty}">
+        <td colspan="4"> You have no events yet!</td>
+    </tr>
+    <tr th:each="createdEvent : ${createdEvents}">
+        <td><span th:text="${createdEvent.name}"> Name </span></td>
+        <td><span th:text="${createdEvent.date}"> Date </span></td>
+<!--        <td><span th:text="${createdEvent.place_name} + ', ' + ${createdEvent.place_city} + ', ' + ${createdEvent.place_country}"> Location </span></td>-->
+        <td>
+            <form th:action="@{/event/openCreatedEvent}" method="post">
+                <input type="hidden" th:value="${createdEvent.id}" name="eventId"/>
+                <input type="submit" value="open Event"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <button th:onclick="|document.location = '@{/event/create}'|" type="button">Create new event</button>
+</div>
+
+<h3>Invited:</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Date</th>
+        <th>actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--    <tr th:if="${invitedEvents.empty}">-->
+    <td colspan="4"> You have no invitations yet!</td>
+    <!--    </tr>-->
+    </tbody>
+</table>
 
 </body>
 </html>

@@ -40,4 +40,11 @@ public class Event {
         this.place = place;
     }
 
+    public Event(User creator, String name, Date date, Place place) {
+        this.creatorUser = creator;
+        this.name = name;
+        this.date = date;
+        this.place = place;
+    }
+
 }
