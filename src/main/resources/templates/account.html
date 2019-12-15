@@ -157,9 +157,7 @@
         <td><span th:text="${createdEvent.place}"> Location </span></td>
         <td>
             <form th:object="${createdEvent}" th:action="@{/event/delete}" th:method="post">
-<!--            <form th:action="@{/event/{id}(id=${createdEvent.id})}" method="delete">-->
                 <input type="hidden" th:value="${createdEvent.id}" name="eventId"/>
-<!--                <input type="hidden" name="deleteEvent" value="delete">-->
                 <input type="submit" value="delete Event"/>
             </form>
         </td>
@@ -175,16 +173,20 @@
 <table>
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Location</th>
-        <th>Date</th>
-        <th>actions</th>
+        <th> Name</th>
+        <th> Date</th>
+        <th> Location</th>
     </tr>
     </thead>
     <tbody>
-    <!--    <tr th:if="${invitedEvents.empty}">-->
-    <td colspan="4"> You have no invitations yet!</td>
-    <!--    </tr>-->
+    <tr th:if="${invitedEvents.empty}">
+        <td colspan="3"> You have no invitations yet!</td>
+    </tr>
+    <tr th:each="invitedEvent : ${invitedEvents}">
+        <td><span th:text="${invitedEvent.event.name}"> Name </span></td>
+        <td><span th:text="${invitedEvent.event.date}"> Date </span></td>
+        <td><span th:text="${invitedEvent.event.place}"> Location </span></td>
+    </tr>
     </tbody>
 </table>
 

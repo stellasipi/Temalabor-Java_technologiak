@@ -18,7 +18,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/event")
@@ -54,17 +56,17 @@ public class EventController {
         return "createEvent";
     }
 
-    /*@PostMapping("openInvitesEvent")
+    @PostMapping("openInvitesEvent")
     public String openInvitedEvent(Model model, @RequestParam Integer eventId, Principal userPrincipal){
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
-        Event event = user.getParticipatedEvents().stream().filter(n -> n.getId().equals(eventId)).findFirst().get();
+        Event event=userService.getParticipatedEvents(user).stream().filter(n -> n.getId().equals(eventId)).findFirst().get();
         model.addAttribute("name", event.getName());
         model.addAttribute("date", event.getDate().toString());
-        model.addAttribute("place_name",event.getPlace().getName());
+        model.addAttribute("place_name", event.getPlace().getName());
         model.addAttribute("place_city", event.getPlace().getCity());
         model.addAttribute("place_country", event.getPlace().getCountry());
-        return "invitesEvent";
-    }*/
+        return "invitedEvent";
+    }
 
 
     //eseménylétrehozás
@@ -73,15 +75,10 @@ public class EventController {
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
         DateFormat formatter=new SimpleDateFormat("yyyy-mm-dd");
         Date date=formatter.parse(eventCreationDto.getDate());
-        Event event = new Event(user, eventCreationDto.getName(), date, new Place(eventCreationDto.getPlace_name(),eventCreationDto.getPlace_city(),eventCreationDto.getPlace_country()));
+        Event event = new Event(user, eventCreationDto.getName(), date, new Place(eventCreationDto.getPlace_name(),
+                eventCreationDto.getPlace_city(),eventCreationDto.getPlace_country()));
         userService.createEvent(user,event);
         return "redirect:/account/";
-    }
-
-    //meghívni barátokat
-    @PostMapping("/{id}/inviteFriends")
-    public void inviteFriends(){
-
     }
 
     //esemény törlése

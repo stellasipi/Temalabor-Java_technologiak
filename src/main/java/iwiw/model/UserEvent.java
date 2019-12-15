@@ -2,10 +2,7 @@ package iwiw.model;
 
 import lombok.*;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -32,6 +29,7 @@ public class UserEvent {
 
     private String comment;//evaluation in text
     private Integer value;//evaluation in number
+
 
     @Override
     public boolean equals(Object o) {

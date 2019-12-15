@@ -58,6 +58,7 @@ public class IwiwApplication implements CommandLineRunner {
         user2.addParticipatedEvent(testEvent, "comment");
 
         userRepository.save(user1);
+        userRepository.save(user2);
 
         Tag testTag = Tag.builder().name("Fontos").build();
         tagRepository.save(testTag);

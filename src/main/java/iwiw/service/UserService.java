@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -109,6 +111,16 @@ public class UserService {
     @Transactional
     public void addNote(User a, Note b){
         a.addNote(b);
+    }
+
+    @Transactional
+    public HashSet<Event> getParticipatedEvents(User user){
+        HashSet<Event> participatedEvents=new HashSet<>();
+        Set<UserEvent> userEvents=userRepository.findById(user.getId()).get().getParticipatedEvents();
+        for(UserEvent userEvent:userEvents){
+            participatedEvents.add(userEvent.getEvent());
+        }
+        return  participatedEvents;
     }
 
 

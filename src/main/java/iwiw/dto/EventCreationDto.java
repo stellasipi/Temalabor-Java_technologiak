@@ -9,4 +9,5 @@ public class EventCreationDto {
     private String place_city;
     private String place_country;
     private String date;
+    //private String invited;
 }
