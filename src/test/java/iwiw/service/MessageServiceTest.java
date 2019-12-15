@@ -11,10 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.equalTo;
@@ -135,8 +132,17 @@ public class MessageServiceTest {
         //ASSERT
         assertThat(user1.getReceivedMessages().size(), equalTo(1));
         assertThat(user2.getReceivedMessages().size(), equalTo(1));
-        assertThat(userRepository.findById(2).get().getReceivedMessages().contains(message), is(true));
-        assertThat(userRepository.findById(3).get().getReceivedMessages().contains(message), is(true));
+
+        Iterator<Message> iterator = userRepository.findById(2).get().getReceivedMessages().iterator();
+        Message user1_message = iterator.next();
+        assertThat(user1_message.getSubject().equals("Körlevél"), is(true));
+        assertThat(user1_message.getBody().equals("Hello hello sziasztok!"), is(true));
+
+        iterator = userRepository.findById(3).get().getReceivedMessages().iterator();
+        Message user2_message = iterator.next();
+        assertThat(user2_message.getSubject().equals("Körlevél"), is(true));
+        assertThat(user2_message.getBody().equals("Hello hello sziasztok!"), is(true));
+
 
     }
 

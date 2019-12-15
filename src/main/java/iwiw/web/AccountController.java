@@ -125,7 +125,7 @@ public class AccountController {
     @PostMapping("/sendMessage")
     public String sendMessage(@ModelAttribute MessageCreationDto messageCreationDto, Principal userPrincipal){
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
-        if( !messageCreationDto.getIsKorlevel()) {
+        if( !messageCreationDto.getAddressee().equals("everyone")/*!messageCreationDto.getIsKorlevel()*/) {
             User addressee = userService.findByUserName(messageCreationDto.getAddressee());
             //messageService.sendMessage(user, addressee, messageCreationDto.getSubject(), messageCreationDto.getText());
             messageService.sendMessage(user, addressee, new Message(messageCreationDto.getSubject(),new Date(System.currentTimeMillis()),messageCreationDto.getText()));

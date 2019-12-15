@@ -8,5 +8,5 @@ public class MessageCreationDto {
     private String subject;
     private String text;
     private String addressee;
-    private Boolean isKorlevel;
+    //private Boolean isKorlevel;
 }

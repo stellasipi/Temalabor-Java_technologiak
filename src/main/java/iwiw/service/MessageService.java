@@ -28,9 +28,16 @@ public class MessageService {
 
     @Transactional
     public void sendMessage(User fromUser,User toUser,/*String subject,String body*/Message message){
-        userRepository.findById(fromUser.getId()).get().addOutgoingMessage(message); //feladó beállítása
-        userRepository.findById(toUser.getId()).get().addIncomingMessage(message); //címzett beállítása
-        messageRepository.save(message); //Új levél mentése
+        Message messageToSend = Message.builder()
+                                .sender(fromUser)
+                                .addressee(toUser)
+                                .sentDate(new Date(System.currentTimeMillis()))
+                                .subject(message.getSubject())
+                                .body(message.getBody())
+                                .build();
+        userRepository.findById(fromUser.getId()).get().addOutgoingMessage(messageToSend); //feladó beállítása
+        userRepository.findById(toUser.getId()).get().addIncomingMessage(messageToSend); //címzett beállítása
+        messageRepository.save(messageToSend); //Új levél mentése
     }
 
     @Transactional

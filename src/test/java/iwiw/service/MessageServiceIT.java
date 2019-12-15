@@ -14,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -143,10 +144,18 @@ public class MessageServiceIT {
         messageService.sendMessageToAllFriends(userSender, message);
 
         //ASSERT
-        assertThat(user1.getReceivedMessages().size(), equalTo(1));
-        assertThat(user2.getReceivedMessages().size(), equalTo(1));
-        assertThat(userRepository.findById(user1.getId()).get().getReceivedMessages().contains(message), is(true));
-        assertThat(userRepository.findById(user2.getId()).get().getReceivedMessages().contains(message), is(true));
+        assertThat(userRepository.findById(user1.getId()).get().getReceivedMessages().size(), equalTo(1));
+        assertThat(userRepository.findById(user2.getId()).get().getReceivedMessages().size(), equalTo(1));
+
+        Iterator<Message> iterator = userRepository.findById(user1.getId()).get().getReceivedMessages().iterator();
+        Message user1_message = iterator.next();
+        assertThat(user1_message.getSubject().equals("Körlevél"), is(true));
+        assertThat(user1_message.getBody().equals("Hello hello sziasztok!"), is(true));
+
+        iterator = userRepository.findById(user2.getId()).get().getReceivedMessages().iterator();
+        Message user2_message = iterator.next();
+        assertThat(user2_message.getSubject().equals("Körlevél"), is(true));
+        assertThat(user2_message.getBody().equals("Hello hello sziasztok!"), is(true));
 
     }
 }
