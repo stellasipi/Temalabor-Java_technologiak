@@ -85,7 +85,7 @@ public class AccountController {
         //User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
         Message message = messageRepository.findById(messageId).get();
         model.addAttribute("subject", message.getSubject());
-        model.addAttribute("sender", message.getSender().toString());
+        model.addAttribute("sender", message.getSender().getUserName());
         model.addAttribute("sentDate", message.getSentDate().toString());
         model.addAttribute("text", message.getBody());
         return "message";
