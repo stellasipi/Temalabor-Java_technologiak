@@ -46,7 +46,9 @@ public class EventService {
             iterator.remove();
             userRepository.save(user);
         }
-        eventRepository.deleteById(event.getId());
+        //eventRepository.deleteById(event.getId());
+        //eventRepository.delete(event);
+        eventRepository.delete(event.getId());
     }
 
     @Transactional
