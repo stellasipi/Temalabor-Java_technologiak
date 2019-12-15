@@ -14,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -45,7 +48,7 @@ public class EventController {
         return "createdEvent";
     }
 
-    @GetMapping("showCreatEventPage")
+    @GetMapping("showCreateEventPage")
     public String showCreatedEventPage(Model model){
         model.addAttribute("event",new EventCreationDto());
         return "createEvent";
@@ -66,9 +69,11 @@ public class EventController {
 
     //eseménylétrehozás
     @PostMapping("/create")
-    public String createEvent(@ModelAttribute EventCreationDto eventCreationDto, Principal userPrincipal){
+    public String createEvent(@ModelAttribute EventCreationDto eventCreationDto, Principal userPrincipal) throws ParseException {
         User user = userService.findById(Integer.parseInt(userPrincipal.getName()));
-        Event event = new Event(user, eventCreationDto.getName(), new Date(), new Place(eventCreationDto.getPlace_name(),eventCreationDto.getPlace_city(),eventCreationDto.getPlace_country()));
+        DateFormat formatter=new SimpleDateFormat("yyyy-mm-dd");
+        Date date=formatter.parse(eventCreationDto.getDate());
+        Event event = new Event(user, eventCreationDto.getName(), date, new Place(eventCreationDto.getPlace_name(),eventCreationDto.getPlace_city(),eventCreationDto.getPlace_country()));
         userService.createEvent(user,event);
         return "redirect:/account/";
     }
@@ -79,42 +84,11 @@ public class EventController {
 
     }
 
-    /*//kilistázni az létrehozott eseményeket
-    @GetMapping("/createdEvents/{userId}")
-    public void getCreatedEvents(@PathVariable Integer userId){
-
-    }
-
-    //kilistázni az eseményeket, amire meghívtak
-    @GetMapping("/invitedEvents/{userId}")
-    public void getInvitedEvents(@PathVariable Integer userId){
-
-    }*/
-
-    //kilistázni az esemény résztvevőit
-    @GetMapping("/{id}/participants")
-    public void getParticipants(){
-
-    }
-
-    //értékelést kérni
-    @PostMapping("/{id}/requestEvaliation")
-    public void requestEvaluation(){
-
-    }
-
     //esemény törlése
-    @DeleteMapping("/{id}")
-    public String deleteEvent(@PathVariable Integer id){
-        Event event=eventRepository.findById(id).get();
+    @PostMapping("/delete")
+    public String deleteEvent(@RequestParam Integer eventId){
+        Event event=eventRepository.findById(eventId).get();
         eventService.deleteEvent(event);
         return "redirect:/account/";
     }
-
-    //esemény módosítása ???
-    @PutMapping("/{id}/modifyEvent")
-    public void modifyEvent(){
-
-    }
-
 }

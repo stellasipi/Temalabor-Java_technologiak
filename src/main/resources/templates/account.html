@@ -156,10 +156,10 @@
         <td><span th:text="${createdEvent.date}"> Date </span></td>
         <td><span th:text="${createdEvent.place}"> Location </span></td>
         <td>
-            <form th:object="${createdEvent}" th:action="@{/event/{id}(id=${createdEvent.id})}" th:method="delete">
+            <form th:object="${createdEvent}" th:action="@{/event/delete}" th:method="post">
 <!--            <form th:action="@{/event/{id}(id=${createdEvent.id})}" method="delete">-->
-<!--                <input type="hidden" th:value="${createdEvent.id}" name="eventId"/>-->
-                <input type="hidden" name="deleteEvent" value="delete">
+                <input type="hidden" th:value="${createdEvent.id}" name="eventId"/>
+<!--                <input type="hidden" name="deleteEvent" value="delete">-->
                 <input type="submit" value="delete Event"/>
             </form>
         </td>
@@ -168,7 +168,7 @@
 </table>
 
 <div>
-    <button th:onclick="|document.location = '@{/event/showCreatEventPage}'|" type="button">Create new event</button>
+    <button th:onclick="|document.location = '@{/event/showCreateEventPage}'|" type="button">Create new event</button>
 </div>
 
 <h3>Invited:</h3>

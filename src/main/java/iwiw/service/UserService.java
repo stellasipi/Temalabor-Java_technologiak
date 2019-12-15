@@ -2,6 +2,7 @@ package iwiw.service;
 
 import iwiw.model.*;
 import iwiw.dto.UserCreationDto;
+import iwiw.repository.EventRepository;
 import iwiw.repository.NotesRepository;
 import iwiw.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class UserService {
 
     @Autowired
     NotesRepository notesRepository;
+
+    @Autowired
+    EventRepository eventRepository;
 
     @Transactional
     public void changeUserName(User user, String newUserName){

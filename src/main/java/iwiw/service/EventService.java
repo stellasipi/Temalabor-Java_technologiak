@@ -38,17 +38,14 @@ public class EventService {
 
     @Transactional
     public void deleteEvent(Event event){
-        /*for(Iterator<User> iterator=userSender.getFriends().iterator();iterator.hasNext();){
-            User friend=iterator.next();
-            User addressee = userRepository.findById(friend.getId()).get();
-            sendMessage(sender, addressee, message);
-        }*/
         for(Iterator<UserEvent> iterator=event.getParticipatingUsers().iterator();iterator.hasNext();){
             UserEvent userEvent=iterator.next();
             User user=userRepository.findById(userEvent.getUser().getId()).get();
             user.getParticipatedEvents().remove(userEvent);
             iterator.remove();
+            userRepository.save(user);
         }
+        eventRepository.deleteById(event.getId());
     }
 
     @Transactional
